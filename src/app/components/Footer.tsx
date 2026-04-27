@@ -23,8 +23,8 @@ export function Footer() {
             <div className="flex items-start gap-2 text-sm" style={{ color: 'rgba(245,230,180,0.7)' }}>
               <MapPin className="w-4 h-4 mt-1 flex-shrink-0" style={{ color: '#d4af37' }} />
               <div>
-                Emerald Isle, NC<br />
-                Crystal Coast
+                8915 Reed Dr<br />
+                Emerald Isle, NC 28594
               </div>
             </div>
           </div>

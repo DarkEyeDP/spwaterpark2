@@ -1,5 +1,5 @@
 import { Link } from 'react-router';
-import { Clock, MapPin, Shirt, Droplets, Sun, Users, ChevronDown } from 'lucide-react';
+import { Clock, MapPin, Shirt, Droplets, Sun, Users, ChevronDown, Anchor } from 'lucide-react';
 import { useState } from 'react';
 
 export function PlanYourVisit() {
@@ -96,26 +96,97 @@ export function PlanYourVisit() {
                   <h3 className="font-heading text-xl text-ocean-navy mb-4">Address</h3>
                   <p className="text-muted-foreground mb-2">
                     Salty Pirate Water Park<br />
-                    Emerald Isle, NC<br />
-                    Crystal Coast
+                    8915 Reed Dr<br />
+                    Emerald Isle, NC 28594
                   </p>
-                  <Link
-                    to="#"
+                  <a
+                    href="https://www.google.com/maps/dir/?api=1&destination=8915+Reed+Dr,+Emerald+Isle,+NC+28594"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 mt-4 px-6 py-3 bg-ocean-navy text-white rounded-lg hover:bg-aqua-water transition-colors"
                   >
                     <MapPin className="w-4 h-4" />
                     Get Directions
-                  </Link>
+                  </a>
                 </div>
 
-                <div className="bg-gradient-to-br from-ocean-navy/5 to-aqua-water/5 rounded-lg p-6 flex items-center justify-center">
-                  <div className="text-center text-muted-foreground">
-                    <MapPin className="w-16 h-16 mx-auto mb-3 text-aqua-water" />
-                    <p>Map placeholder</p>
-                    <p className="text-sm mt-2">Interactive map coming soon</p>
-                  </div>
+                <div className="rounded-lg overflow-hidden border border-ocean-navy/10" style={{ minHeight: '220px' }}>
+                  <iframe
+                    title="Salty Pirate Water Park location"
+                    src="https://maps.google.com/maps?q=8915+Reed+Dr,+Emerald+Isle,+NC+28594&output=embed"
+                    width="100%"
+                    height="220"
+                    style={{ border: 0, display: 'block' }}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Lodging ── */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-center gap-3 mb-3">
+              <Anchor className="w-8 h-8 text-aqua-water" />
+              <h2 className="font-heading text-3xl text-ocean-navy">Drop Anchor Nearby</h2>
+            </div>
+            <p className="text-muted-foreground mb-8 max-w-2xl">
+              Making a trip of it? Emerald Isle and the surrounding Crystal Coast have plenty of vacation rentals and hotels just minutes from the park. Jump straight to the search results below.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {[
+                {
+                  name: 'VRBO',
+                  tagline: 'Vacation rentals & beach houses',
+                  href: 'https://www.vrbo.com/search?destination=Salty+Pirate+Water+Park%2C+Emerald+Isle%2C+North+Carolina%2C+United+States+of+America&regionId=553248621561872517&sort=RECOMMENDED',
+                  accent: '#1b6ac9',
+                },
+                {
+                  name: 'Airbnb',
+                  tagline: 'Homes, cottages & beach stays',
+                  href: 'https://www.airbnb.com/s/Emerald-Isle--NC/homes',
+                  accent: '#ff5a5f',
+                },
+                {
+                  name: 'Booking.com',
+                  tagline: 'Hotels, motels & rentals',
+                  href: 'https://www.booking.com/searchresults.html?ss=Emerald+Isle%2C+North+Carolina',
+                  accent: '#003580',
+                },
+                {
+                  name: 'Hotels.com',
+                  tagline: 'Hotels close to the park',
+                  href: 'https://www.hotels.com/search.do?q-destination=Emerald+Isle%2C+NC',
+                  accent: '#c1262b',
+                },
+              ].map(({ name, tagline, href, accent }) => (
+                <a
+                  key={name}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex flex-col justify-between rounded-xl border-2 p-5 transition-all hover:shadow-lg hover:-translate-y-0.5"
+                  style={{ borderColor: `${accent}22`, background: `linear-gradient(135deg, white 60%, ${accent}08)` }}
+                >
+                  <div>
+                    <div className="font-heading text-lg mb-1" style={{ color: accent }}>{name}</div>
+                    <p className="text-sm text-muted-foreground leading-snug">{tagline}</p>
+                  </div>
+                  <div
+                    className="mt-4 inline-flex items-center gap-1.5 text-xs font-heading tracking-wide transition-colors"
+                    style={{ color: accent }}
+                  >
+                    Search now
+                    <span className="transition-transform group-hover:translate-x-0.5">→</span>
+                  </div>
+                </a>
+              ))}
             </div>
           </div>
         </div>

@@ -64,8 +64,8 @@ export function Contact() {
                 </div>
                 <h3 className="font-heading text-lg text-ocean-navy mb-2">Address</h3>
                 <p className="text-muted-foreground">
-                  Emerald Isle, NC<br />
-                  Crystal Coast
+                  8915 Reed Dr<br />
+                  Emerald Isle, NC 28594
                 </p>
               </div>
             </div>
@@ -171,18 +171,27 @@ export function Contact() {
               <div className="space-y-6">
                 <div className="bg-white border-2 border-ocean-navy/10 rounded-xl p-6">
                   <h3 className="font-heading text-xl text-ocean-navy mb-4">Visit Us</h3>
-                  <div className="bg-gradient-to-br from-ocean-navy/5 to-aqua-water/5 rounded-lg p-8 flex items-center justify-center min-h-[300px]">
-                    <div className="text-center text-muted-foreground">
-                      <MapPin className="w-16 h-16 mx-auto mb-3 text-aqua-water" />
-                      <p>Interactive map placeholder</p>
-                      <p className="text-sm mt-2">Get directions to the park</p>
-                    </div>
+                  <div className="rounded-lg overflow-hidden border border-ocean-navy/10">
+                    <iframe
+                      title="Salty Pirate Water Park location"
+                      src="https://maps.google.com/maps?q=8915+Reed+Dr,+Emerald+Isle,+NC+28594&output=embed"
+                      width="100%"
+                      height="300"
+                      style={{ border: 0, display: 'block' }}
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                    />
                   </div>
 
-                  <button className="w-full mt-4 px-6 py-3 bg-ocean-navy text-white rounded-lg hover:bg-aqua-water transition-colors flex items-center justify-center gap-2">
+                  <a
+                    href="https://www.google.com/maps/dir/?api=1&destination=8915+Reed+Dr,+Emerald+Isle,+NC+28594"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full mt-4 px-6 py-3 bg-ocean-navy text-white rounded-lg hover:bg-aqua-water transition-colors flex items-center justify-center gap-2"
+                  >
                     <MapPin className="w-4 h-4" />
                     Get Directions
-                  </button>
+                  </a>
                 </div>
 
                 <div className="bg-gradient-to-br from-parchment to-warm-sand border-2 border-gold-treasure/30 rounded-xl p-6">

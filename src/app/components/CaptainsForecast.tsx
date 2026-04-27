@@ -1,4 +1,4 @@
-import { Sun, Cloud, CloudRain, AlertTriangle, Wind, RefreshCw, Anchor } from 'lucide-react';
+import { Sun, Cloud, CloudRain, AlertTriangle, RefreshCw, Anchor } from 'lucide-react';
 import { useWeather, type WeatherStatus } from '../hooks/useWeather';
 
 const STATUS_CONFIG: Record<
@@ -224,16 +224,6 @@ export function CaptainsForecast() {
             </button>
           </div>
 
-          {/* Wind detail */}
-          {data.windSpeed && (
-            <div
-              className="mt-2 flex items-center gap-1 text-xs"
-              style={{ color: '#8a6a4a', fontFamily: 'var(--font-body)' }}
-            >
-              <Wind className="w-3 h-3" />
-              {data.windSpeed}
-            </div>
-          )}
         </div>
       </div>
     </div>

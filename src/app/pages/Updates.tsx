@@ -5,6 +5,7 @@ import { LogPage, CoverPage, MascotPage, BackCoverPage } from '../components/Log
 
 const DARK_WOOD = '#1a0e04';
 const PARCHMENT = '#f0ddb4';
+const DESK_IMAGE_SET = `url('/pirate-desk-top-optimized.jpg')`;
 
 export function Updates() {
   // One page container per entry plus one for the cover (index 0).
@@ -58,9 +59,20 @@ export function Updates() {
     height: '100%',
     backfaceVisibility: 'hidden',
     WebkitBackfaceVisibility: 'hidden' as React.CSSProperties['backfaceVisibility'],
+    transformStyle: 'preserve-3d',
     // 'clip' visually clips like 'hidden' but does NOT create a scroll container,
     // so descendant overflow-y:auto elements can still scroll inside the 3D context.
     overflow: 'clip',
+  };
+
+  const frontFaceStyle: React.CSSProperties = {
+    ...faceStyle,
+    transform: 'rotateY(0deg) translateZ(0.1px)',
+  };
+
+  const backFaceStyle: React.CSSProperties = {
+    ...faceStyle,
+    transform: 'rotateY(180deg) translateZ(0.1px)',
   };
 
   function frontFace(i: number) {
@@ -91,7 +103,13 @@ export function Updates() {
       {/* Book */}
       <div
         className="flex flex-col items-center pt-6 pb-16 px-2"
-        style={{ background: DARK_WOOD }}
+        style={{
+          backgroundColor: DARK_WOOD,
+          backgroundImage: `linear-gradient(rgba(18,10,2,0.2), rgba(18,10,2,0.32)), ${DESK_IMAGE_SET}`,
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+        }}
         onTouchStart={(e) => {
           touchStartX.current = e.touches[0].clientX;
           touchStartY.current = e.touches[0].clientY;
@@ -106,65 +124,97 @@ export function Updates() {
           }
         }}
       >
-        {/* Wood frame */}
-        <div style={{ width: '100%', maxWidth: '900px', background: '#3a1e08', padding: '12px 14px 14px', boxShadow: '0 28px 70px rgba(0,0,0,0.75), inset 0 1px 0 rgba(212,175,55,0.2)', border: '2px solid #6b4a1e', borderRadius: '2px' }}>
-          {/* Binding dots */}
-          <div className="flex gap-2 mb-3 justify-center">
-            {[...Array(11)].map((_, i) => (
-              <div key={i} style={{ width: 6, height: 6, borderRadius: '50%', background: '#d4af37', opacity: 0.45 }} />
-            ))}
-          </div>
+        <div style={{ width: '100%', maxWidth: '980px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 18 }}>
+          <div
+            id="logbook"
+            style={{
+              width: '100%',
+              maxWidth: '900px',
+              padding: '6px 8px 0',
+              transform: 'rotate(-1.4deg)',
+              transformOrigin: 'center center',
+            }}
+          >
+            {/* Perspective stage — no overflow:hidden so 3D sweeps aren't clipped */}
+            <div style={{ position: 'relative', width: '100%', height: 'clamp(360px, 52vw, 540px)', perspective: 'clamp(500px, 180vw, 2200px)', filter: 'drop-shadow(0 24px 22px rgba(0,0,0,0.34)) drop-shadow(0 10px 10px rgba(0,0,0,0.22))' }}>
 
-          {/* Perspective stage — no overflow:hidden so 3D sweeps aren't clipped */}
-          <div style={{ position: 'relative', width: '100%', height: 'clamp(360px, 52vw, 540px)', perspective: 'clamp(500px, 180vw, 2200px)' }}>
-            {Array.from({ length: N }, (_, i) => (
-              <div key={i} style={pageStyle(i)}>
-                <div style={faceStyle}>{frontFace(i)}</div>
-                <div style={{ ...faceStyle, transform: 'rotateY(180deg)' }}>{backFace(i)}</div>
-              </div>
-            ))}
+              {/* Open book: dark cover material visible around page edges */}
+              {spread > 0 && (spread < maxSpread || animatingPage === N - 1) && (
+                <div style={{ position: 'absolute', inset: -10, background: 'linear-gradient(135deg, #3a1c08, #2e1806 55%, #251505)', borderRadius: 5, zIndex: 0, pointerEvents: 'none', opacity: animatingPage === 0 || animatingPage === N - 1 ? 0 : 1, transition: 'opacity 0.5s ease' }} />
+              )}
 
-            {/* Spine shadow between open pages */}
-            {spread > 0 && spread < maxSpread && (
-              <div style={{ position: 'absolute', top: 0, bottom: 0, left: 'calc(50% - 6px)', width: 12, background: 'linear-gradient(90deg, rgba(0,0,0,0.22), rgba(0,0,0,0.08) 40%, rgba(0,0,0,0.08) 60%, rgba(0,0,0,0.22))', pointerEvents: 'none', zIndex: 50 }} />
-            )}
-          </div>
+              {/* Closed book: subtle page thickness on right edge */}
+              {spread === 0 && (
+                <div style={{ position: 'absolute', top: '3%', bottom: '3%', left: '75%', width: 5, borderRadius: '0 2px 2px 0', background: 'linear-gradient(90deg, #c8b47a, #e0cc9a)', boxShadow: '3px 0 7px rgba(0,0,0,0.45)', pointerEvents: 'none', zIndex: 10 }} />
+              )}
 
-          {/* Navigation bar */}
-          <div className="flex items-center justify-between mt-4 px-1">
-            <button
-              onClick={() => goTo(spread - 1)}
-              disabled={spread === 0}
-              className="flex items-center gap-1.5 transition-all disabled:opacity-30"
-              style={{ fontFamily: 'var(--font-heading)', fontSize: '0.7rem', letterSpacing: '0.1em', color: '#d4af37', padding: '6px 10px', border: '1px solid rgba(212,175,55,0.3)', borderRadius: '1px', background: 'rgba(212,175,55,0.06)', cursor: spread === 0 ? 'default' : 'pointer' }}
-            >
-              <ChevronLeft className="w-4 h-4" /> Prev
-            </button>
-
-            <div className="flex gap-1.5 flex-wrap justify-center">
-              {Array.from({ length: maxSpread + 1 }, (_, i) => (
-                <button
+              {Array.from({ length: N }, (_, i) => (
+                <div
                   key={i}
-                  onClick={() => goTo(i)}
-                  style={{ width: 8, height: 8, borderRadius: '50%', border: 'none', cursor: 'pointer', background: i === spread ? '#d4af37' : 'rgba(212,175,55,0.25)', transition: 'all 0.2s' }}
-                  aria-label={`Go to page ${i}`}
-                />
+                  style={{ ...pageStyle(i), cursor: 'pointer' }}
+                  onClick={() => i < spread ? goTo(spread - 1) : goTo(spread + 1)}
+                >
+                  <div style={frontFaceStyle}>{frontFace(i)}</div>
+                  <div style={backFaceStyle}>{backFace(i)}</div>
+                </div>
               ))}
+
+              {/* Spine shadow between open pages */}
+              {spread > 0 && spread < maxSpread && (
+                <div style={{ position: 'absolute', top: 0, bottom: 0, left: 'calc(50% - 14px)', width: 28, background: 'linear-gradient(90deg, transparent, rgba(0,0,0,0.28) 45%, rgba(0,0,0,0.28) 55%, transparent)', pointerEvents: 'none', zIndex: 300, opacity: animatingPage === 0 || animatingPage === N - 1 ? 0 : 1, transition: 'opacity 0.5s ease' }} />
+              )}
+            </div>
+          </div>
+
+          <div
+            style={{
+              width: '100%',
+              maxWidth: '760px',
+              padding: '14px 18px 16px',
+              background: 'linear-gradient(180deg, rgba(42,24,8,0.94), rgba(28,16,6,0.92))',
+              border: '2px solid rgba(212,175,55,0.28)',
+              borderRadius: 10,
+              boxShadow: '0 20px 40px rgba(0,0,0,0.42), inset 0 1px 0 rgba(212,175,55,0.22)',
+              position: 'relative',
+            }}
+          >
+            <div style={{ position: 'absolute', inset: 8, border: '1px solid rgba(212,175,55,0.16)', borderRadius: 6, pointerEvents: 'none' }} />
+
+            <div className="flex items-center justify-between gap-4 relative">
+              <button
+                onClick={() => goTo(spread - 1)}
+                disabled={spread === 0}
+                className="flex items-center gap-1.5 transition-all disabled:opacity-30"
+                style={{ fontFamily: 'var(--font-heading)', fontSize: '0.7rem', letterSpacing: '0.1em', color: '#d4af37', padding: '7px 12px', border: '1px solid rgba(212,175,55,0.34)', borderRadius: 3, background: 'rgba(212,175,55,0.08)', cursor: spread === 0 ? 'default' : 'pointer', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04)' }}
+              >
+                <ChevronLeft className="w-4 h-4" /> Prev
+              </button>
+
+              <div className="flex gap-1.5 flex-wrap justify-center">
+                {Array.from({ length: maxSpread + 1 }, (_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => goTo(i)}
+                    style={{ width: 10, height: 10, borderRadius: '50%', border: '1px solid rgba(212,175,55,0.22)', cursor: 'pointer', background: i === spread ? '#d4af37' : 'rgba(212,175,55,0.22)', transition: 'all 0.2s', boxShadow: i === spread ? '0 0 10px rgba(212,175,55,0.45)' : 'none' }}
+                    aria-label={`Go to page ${i}`}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={() => goTo(spread + 1)}
+                disabled={spread === maxSpread}
+                className="flex items-center gap-1.5 transition-all disabled:opacity-30"
+                style={{ fontFamily: 'var(--font-heading)', fontSize: '0.7rem', letterSpacing: '0.1em', color: '#d4af37', padding: '7px 12px', border: '1px solid rgba(212,175,55,0.34)', borderRadius: 3, background: 'rgba(212,175,55,0.08)', cursor: spread === maxSpread ? 'default' : 'pointer', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04)' }}
+              >
+                Next <ChevronRight className="w-4 h-4" />
+              </button>
             </div>
 
-            <button
-              onClick={() => goTo(spread + 1)}
-              disabled={spread === maxSpread}
-              className="flex items-center gap-1.5 transition-all disabled:opacity-30"
-              style={{ fontFamily: 'var(--font-heading)', fontSize: '0.7rem', letterSpacing: '0.1em', color: '#d4af37', padding: '6px 10px', border: '1px solid rgba(212,175,55,0.3)', borderRadius: '1px', background: 'rgba(212,175,55,0.06)', cursor: spread === maxSpread ? 'default' : 'pointer' }}
-            >
-              Next <ChevronRight className="w-4 h-4" />
-            </button>
+            <p className="text-center mt-4 relative" style={{ fontFamily: 'var(--font-heading)', fontSize: '0.55rem', letterSpacing: '0.12em', color: 'rgba(212,175,55,0.55)' }}>
+              {spread === 0 ? 'Click Next to open the log' : 'Use buttons to turn the page'}
+            </p>
           </div>
-
-          <p className="text-center mt-3" style={{ fontFamily: 'var(--font-heading)', fontSize: '0.55rem', letterSpacing: '0.1em', color: 'rgba(212,175,55,0.35)' }}>
-            {spread === 0 ? 'Click Next to open the log' : 'Use buttons to turn the page'}
-          </p>
         </div>
       </div>
 

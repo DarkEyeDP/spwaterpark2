@@ -45,6 +45,19 @@ function deriveStatus(temp: number, rainChance: number, hasAlert: boolean): Weat
   return 'perfect';
 }
 
+interface NWSPeriod {
+  endTime: string;
+  isDaytime: boolean;
+  temperature: number;
+  probabilityOfPrecipitation?: { value: number | null };
+  shortForecast: string;
+  windSpeed: string;
+}
+
+interface NWSAlertFeature {
+  properties?: { event?: string; headline?: string };
+}
+
 async function fetchFromNWS(): Promise<WeatherData> {
   // Step 1: Resolve grid point for coordinates
   const pointsRes = await fetch(`https://api.weather.gov/points/${LAT},${LON}`, {
@@ -65,7 +78,7 @@ async function fetchFromNWS(): Promise<WeatherData> {
 
   // Find the current or next daytime period
   const now = new Date();
-  const periods: any[] = forecastJson.properties.periods;
+  const periods: NWSPeriod[] = forecastJson.properties.periods;
   const current =
     periods.find((p) => new Date(p.endTime) > now && p.isDaytime) ??
     periods[0];
@@ -85,10 +98,10 @@ async function fetchFromNWS(): Promise<WeatherData> {
     );
     if (alertsRes.ok) {
       const alertsJson = await alertsRes.json();
-      const features: any[] = alertsJson.features ?? [];
+      const features: NWSAlertFeature[] = alertsJson.features ?? [];
       const severe = features.find((f) =>
         SEVERE_EVENT_KEYWORDS.some((kw) =>
-          (f.properties?.event as string)?.includes(kw)
+          f.properties?.event?.includes(kw)
         )
       );
       if (severe) {
