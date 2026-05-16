@@ -4,6 +4,7 @@ import { Footer } from './Footer';
 import { StatusBanner } from './StatusBanner';
 import { ScrollToTop } from './ScrollToTop';
 import { Compass } from './Compass';
+import { AnalyticsPageTracker } from './AnalyticsPageTracker';
 import { HeroWeatherProvider } from '../context/HeroWeatherContext';
 import type { ParkStatus } from './StatusBanner';
 
@@ -23,6 +24,7 @@ export function Root() {
 
   return (
     <HeroWeatherProvider>
+      <AnalyticsPageTracker />
       <ScrollToTop />
       <div className="min-h-screen flex flex-col">
         <StatusBanner status={status} />

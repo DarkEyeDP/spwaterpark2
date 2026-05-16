@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { useSEO } from '../hooks/useSEO';
 import { Phone, Mail, MapPin, Facebook, Instagram, Send, Anchor } from 'lucide-react';
 import { toast } from 'sonner';
 import { PageHero } from '../components/PageHero';
@@ -53,6 +54,11 @@ const labelStyle: React.CSSProperties = {
 };
 
 export function Contact() {
+  useSEO({
+    title: 'Contact Us | Salty Pirate Water Park — Emerald Isle, NC',
+    description: 'Contact Salty Pirate Water Park in Emerald Isle, NC. Call (252) 354-2609, email us, or fill out our contact form. Seasonal hiring applications also accepted.',
+    canonical: '/contact',
+  });
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ContactFormData>();
   const hiringForm = useForm<HiringFormData>();
 

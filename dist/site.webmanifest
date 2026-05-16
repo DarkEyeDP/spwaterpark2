@@ -1,11 +1,13 @@
 {
   "name": "Salty Pirate Water Park",
   "short_name": "Salty Pirate",
+  "description": "Family water park in Emerald Isle, NC. Open Memorial Day through Labor Day.",
   "icons": [
     { "src": "/favicon-16x16.png", "sizes": "16x16", "type": "image/png" },
     { "src": "/favicon-32x32.png", "sizes": "32x32", "type": "image/png" }
   ],
-  "theme_color": "#0A2342",
-  "background_color": "#FEF3DC",
-  "display": "standalone"
+  "theme_color": "#1a0e04",
+  "background_color": "#f0ddb4",
+  "display": "standalone",
+  "start_url": "/"
 }

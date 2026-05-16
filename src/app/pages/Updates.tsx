@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { useSEO } from '../hooks/useSEO';
 import { ChevronLeft, ChevronRight, Facebook, Instagram } from 'lucide-react';
 import { ENTRIES } from '../data/captainsLog';
 import { LogPage, CoverPage, MascotPage, BackCoverPage } from '../components/LogBook';
@@ -8,6 +9,11 @@ const PARCHMENT = '#f0ddb4';
 const DESK_IMAGE_SET = `url('/pirate-desk-top-optimized.jpg')`;
 
 export function Updates() {
+  useSEO({
+    title: "Captain's Log & Updates | Salty Pirate Water Park — Emerald Isle, NC",
+    description: 'Stay up to date with park news, seasonal announcements, and updates from Salty Pirate Water Park in Emerald Isle, NC.',
+    canonical: '/updates',
+  });
   // One page container per entry plus one for the cover (index 0).
   // States:  0 = cover closed, 1..N-1 = spreads, N = back cover visible.
   const N = ENTRIES.length + 1;

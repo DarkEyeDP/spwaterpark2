@@ -1,20 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Salty Pirate Water Park</title>
-      <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-      <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-      <link rel="manifest" href="/site.webmanifest" />
-      <style>html, body { height: 100%; margin: 0; } #root { height: 100%; }</style>
-    </head>
+    <!-- Primary meta -->
+    <title>Salty Pirate Water Park | Emerald Isle, NC Water Park</title>
+    <meta name="description" content="Salty Pirate Water Park in Emerald Isle, NC — family water park open Memorial Day through Labor Day. Slides, pools, and coastal fun for all ages. Day tickets from $17." />
+    <meta name="keywords" content="Salty Pirate Water Park, Emerald Isle water park, NC water park, Crystal Coast water park, family water park North Carolina, Emerald Isle NC, waterpark near beach" />
+    <meta name="author" content="Salty Pirate Water Park" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.saltypiratewaterpark.com/" />
 
-    <body>
-      <div id="root"></div>
-      <script type="module" src="/src/main.tsx"></script>
-    </body>
-  </html>
-  
+    <!-- Geo -->
+    <meta name="geo.region" content="US-NC" />
+    <meta name="geo.placename" content="Emerald Isle, NC" />
+    <meta name="geo.position" content="34.6654;-77.0272" />
+    <meta name="ICBM" content="34.6654, -77.0272" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Salty Pirate Water Park" />
+    <meta property="og:title" content="Salty Pirate Water Park | Emerald Isle, NC" />
+    <meta property="og:description" content="Family water park on the Crystal Coast. Open Memorial Day through Labor Day. Slides, pools, and coastal fun for all ages." />
+    <meta property="og:url" content="https://www.saltypiratewaterpark.com/" />
+    <meta property="og:image" content="https://www.saltypiratewaterpark.com/beach-background.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Salty Pirate Water Park | Emerald Isle, NC" />
+    <meta name="twitter:description" content="Family water park on the Crystal Coast. Open Memorial Day through Labor Day." />
+    <meta name="twitter:image" content="https://www.saltypiratewaterpark.com/beach-background.jpg" />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#1a0e04" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1EHBKZC5PD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-1EHBKZC5PD', { send_page_view: false });
+    </script>
+
+    <script>
+      (function redirectGitHubPagesSpa() {
+        var redirect = window.location.search.match(/[?&]p=([^&]+)/);
+        if (!redirect) return;
+
+        var decodedPath = redirect[1].replace(/~and~/g, '&');
+        var newUrl =
+          window.location.origin +
+          window.location.pathname.replace(/\/$/, '') +
+          decodedPath +
+          window.location.hash;
+
+        window.history.replaceState(null, '', newUrl);
+      })();
+    </script>
+
+    <!-- JSON-LD: Local Business + Amusement Park -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["AmusementPark", "LocalBusiness"],
+      "name": "Salty Pirate Water Park",
+      "url": "https://www.saltypiratewaterpark.com",
+      "logo": "https://www.saltypiratewaterpark.com/favicon-32x32.png",
+      "image": "https://www.saltypiratewaterpark.com/beach-background.jpg",
+      "description": "Family water park in Emerald Isle, NC on the Crystal Coast. Open Memorial Day weekend through Labor Day with water slides, pools, and activities for all ages.",
+      "foundingDate": "1977",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "8915 Reed Dr",
+        "addressLocality": "Emerald Isle",
+        "addressRegion": "NC",
+        "postalCode": "28594",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 34.6654,
+        "longitude": -77.0272
+      },
+      "telephone": "+12523542609",
+      "email": "saltypiratewaterpark@gmail.com",
+      "priceRange": "$$",
+      "currenciesAccepted": "USD",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Monday",
+          "opens": "11:00",
+          "closes": "17:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+          "opens": "10:00",
+          "closes": "18:00"
+        }
+      ],
+      "sameAs": [
+        "https://www.facebook.com/saltypiratewaterpark",
+        "https://www.instagram.com/saltypiratewaterpark",
+        "https://www.saltypiratestore.com"
+      ]
+    }
+    </script>
+
+    <style>html, body { height: 100%; margin: 0; } #root { height: 100%; }</style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

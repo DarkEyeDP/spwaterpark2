@@ -1,4 +1,5 @@
 import { UtensilsCrossed, IceCream, ShoppingBag, Palmtree, Cloud, MapPin, Star, Link as LinkIcon, ExternalLink } from 'lucide-react';
+import { useSEO } from '../hooks/useSEO';
 import { Link } from 'react-router';
 import { PageHero } from '../components/PageHero';
 import { TornEdge } from '../components/TornEdge';
@@ -128,6 +129,11 @@ const businesses = [
 ];
 
 export function Nearby() {
+  useSEO({
+    title: 'Nearby Treasures | Salty Pirate Water Park — Emerald Isle, NC',
+    description: 'Discover restaurants, ice cream, shopping, beaches, and family attractions near Salty Pirate Water Park in Emerald Isle, NC. Make a full day of your Crystal Coast visit.',
+    canonical: '/nearby',
+  });
   return (
     <div>
       <PageHero

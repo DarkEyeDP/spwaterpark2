@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react';
+import { useSEO } from '../hooks/useSEO';
 import { Link } from 'react-router';
 import { ArrowRight, Clock, DollarSign, Navigation } from 'lucide-react';
 import { CaptainsForecast } from '../components/CaptainsForecast';
@@ -19,6 +20,11 @@ const PARCHMENT = '#f0ddb4';
 const CREAM = '#f8edd6';
 
 export function Home() {
+  useSEO({
+    title: 'Salty Pirate Water Park | Family Water Park in Emerald Isle, NC',
+    description: 'Salty Pirate Water Park — Emerald Isle, NC. Family water park open Memorial Day through Labor Day on the Crystal Coast. Water slides, pools, and fun for all ages. Day tickets from $17.',
+    canonical: '/',
+  });
   const { setHeroVisible } = useHeroWeather();
   const weatherChipRef = useRef<HTMLDivElement>(null);
   const shimmerBeamRef = useRef<HTMLDivElement>(null);

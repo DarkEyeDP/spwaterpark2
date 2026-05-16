@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSEO } from '../hooks/useSEO';
 import { Droplet, Waves, Users, MapPin, X, Anchor, Maximize2, Minimize2 } from 'lucide-react';
 import { PageHero } from '../components/PageHero';
 import { TornEdge } from '../components/TornEdge';
@@ -83,6 +84,11 @@ const attractions: Attraction[] = [
 ];
 
 export function Explore() {
+  useSEO({
+    title: 'Explore the Park | Salty Pirate Water Park — Emerald Isle, NC',
+    description: 'Explore rides and attractions at Salty Pirate Water Park in Emerald Isle, NC. Water slides, pools, kiddie areas, and relaxation zones for the whole family.',
+    canonical: '/explore',
+  });
   const [activeId, setActiveId] = useState<AttractionId | null>(null);
   const [mapFullscreen, setMapFullscreen] = useState(false);
   const activeAttraction = attractions.find(a => a.id === activeId) ?? null;

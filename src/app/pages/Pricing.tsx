@@ -1,5 +1,6 @@
 import { Check, Star, Users, Calendar, Clock, Shield, Anchor, Ticket, WalletCards } from 'lucide-react';
 import { useState } from 'react';
+import { useSEO } from '../hooks/useSEO';
 import coinImg from '@/assets/coin.svg';
 import { PageHero } from '../components/PageHero';
 import { TornEdge } from '../components/TornEdge';
@@ -53,6 +54,11 @@ const COIN_FILTERS = [
 ];
 
 export function Pricing() {
+  useSEO({
+    title: 'Pricing & Tickets | Salty Pirate Water Park — Emerald Isle, NC',
+    description: 'Water park ticket prices for Salty Pirate Water Park in Emerald Isle, NC. Day tickets from $17, weekly passes $60, and season passes from $85. Late arrival rate $12 after 4 PM.',
+    canonical: '/pricing',
+  });
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const primaryChoices = [
     {

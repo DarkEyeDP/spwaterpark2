@@ -1,4 +1,5 @@
 import { Link } from 'react-router';
+import { useSEO } from '../hooks/useSEO';
 import { Clock, MapPin, Shirt, Droplets, Sun, Users, ChevronDown, Anchor } from 'lucide-react';
 import { useState } from 'react';
 import { PageHero } from '../components/PageHero';
@@ -67,6 +68,11 @@ const lodging = [
 ];
 
 export function PlanYourVisit() {
+  useSEO({
+    title: 'Plan Your Visit | Salty Pirate Water Park — Emerald Isle, NC',
+    description: 'Plan your visit to Salty Pirate Water Park in Emerald Isle, NC. Park hours, directions, what to bring, FAQs, and nearby lodging on the Crystal Coast.',
+    canonical: '/plan-your-visit',
+  });
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (

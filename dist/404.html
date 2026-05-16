@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Salty Pirate Water Park</title>
+    <script>
+      (function redirectToSpa() {
+        var pathSegmentsToKeep = window.location.hostname.endsWith('.github.io') ? 1 : 0;
+        var location = window.location;
+        var pathnameSegments = location.pathname.split('/').filter(Boolean);
+        var basePath = pathnameSegments.slice(0, pathSegmentsToKeep).join('/');
+        var routePath = pathnameSegments.slice(pathSegmentsToKeep).join('/');
+        var redirectPath = routePath ? '/' + routePath : '';
+        var redirectUrl =
+          location.protocol +
+          '//' +
+          location.hostname +
+          (location.port ? ':' + location.port : '') +
+          '/' +
+          (basePath ? basePath + '/' : '') +
+          '?p=' +
+          redirectPath.replace(/&/g, '~and~') +
+          (location.search ? '&q=' + location.search.slice(1).replace(/&/g, '~and~') : '') +
+          location.hash;
+
+        location.replace(redirectUrl);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>
