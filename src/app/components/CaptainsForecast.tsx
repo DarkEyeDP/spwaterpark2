@@ -146,10 +146,10 @@ export function CaptainsForecast() {
         </div>
       )}
 
-      <div className="flex items-start gap-4">
-        {/* Status icon */}
+      {/* Icon + label row — stacks on mobile, side-by-side on sm+ */}
+      <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
         <div
-          className="p-3 flex-shrink-0"
+          className="p-3 flex-shrink-0 self-start"
           style={{
             background: 'rgba(255,255,255,0.6)',
             border: `1px solid ${config.border}`,
@@ -164,7 +164,7 @@ export function CaptainsForecast() {
             className="text-xs tracking-widest uppercase mb-1"
             style={{ color: '#8a6a4a', fontFamily: 'var(--font-heading)' }}
           >
-            Captain's Forecast
+            Captain's Forecast:
           </p>
           <h3
             className="text-xl mb-1"
@@ -177,15 +177,15 @@ export function CaptainsForecast() {
           </p>
 
           {/* Stats row */}
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-3 gap-2 sm:gap-3">
             {[
-              { label: 'Temperature', value: `${data.temperature}°F` },
-              { label: 'Rain Chance', value: `${data.rainChance}%` },
+              { label: 'Temp', value: `${data.temperature}°F` },
+              { label: 'Rain', value: `${data.rainChance}%` },
               { label: 'Wind', value: data.windSpeed },
             ].map((stat) => (
               <div
                 key={stat.label}
-                className="text-center py-3 px-2"
+                className="text-center py-3 px-1"
                 style={{
                   background: 'rgba(255,255,255,0.55)',
                   border: '1px solid rgba(120,72,20,0.18)',
@@ -193,7 +193,7 @@ export function CaptainsForecast() {
                 }}
               >
                 <div
-                  className="text-xs uppercase tracking-wide mb-1"
+                  className="text-xs uppercase tracking-wide mb-1 whitespace-nowrap"
                   style={{ color: '#8a6a4a', fontFamily: 'var(--font-heading)' }}
                 >
                   {stat.label}
@@ -223,7 +223,6 @@ export function CaptainsForecast() {
               Updated {timeStr}
             </button>
           </div>
-
         </div>
       </div>
     </div>

@@ -1,8 +1,8 @@
 import { useRef, useEffect } from 'react';
 import { Link } from 'react-router';
-import { ArrowRight, Waves, Users, Droplet, MapPin, Clock, DollarSign, Navigation } from 'lucide-react';
-import { Countdown } from '../components/Countdown';
+import { ArrowRight, Clock, DollarSign, Navigation } from 'lucide-react';
 import { CaptainsForecast } from '../components/CaptainsForecast';
+import { EarlyBirdModal } from '../components/EarlyBirdModal';
 import { TornEdge } from '../components/TornEdge';
 import { WeatherChip } from '../components/WeatherChip';
 import { useHeroWeather } from '../context/HeroWeatherContext';
@@ -17,12 +17,19 @@ import coinImg from '@/assets/coin.svg';
 const DARK_WOOD = '#1a0e04';
 const PARCHMENT = '#f0ddb4';
 const CREAM = '#f8edd6';
-const NAVY = '#0c2340';
 
 export function Home() {
-  const memorialDay2026 = new Date('2026-05-25T10:00:00');
   const { setHeroVisible } = useHeroWeather();
   const weatherChipRef = useRef<HTMLDivElement>(null);
+  const shimmerBeamRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const beam = shimmerBeamRef.current;
+    if (!beam) return;
+    beam.style.animation = 'none';
+    void beam.offsetWidth; // force reflow so browser registers the reset
+    beam.style.animation = '';
+  }, []);
 
   useEffect(() => {
     const el = weatherChipRef.current;
@@ -35,14 +42,24 @@ export function Home() {
     return () => observer.disconnect();
   }, [setHeroVisible]);
 
+  const heroBg = {
+    backgroundImage: `
+      image-set(
+        url('/beach-background.avif') type('image/avif'),
+        url('/beach-background-optimized.jpg') type('image/jpeg')
+      )`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center 30%',
+  };
+
   return (
     <div>
+      <EarlyBirdModal />
+      {/* ── Hero + first torn edge share the same background so the image flows through the transparent tear area ── */}
+      <div style={heroBg}>
       {/* ── Hero ── */}
       <section
         className="relative text-white pt-8 pb-12 md:pt-10 md:pb-16 overflow-hidden"
-        style={{
-          background: `linear-gradient(160deg, ${DARK_WOOD} 0%, #2a1810 35%, #0c2340 100%)`,
-        }}
       >
         {/* Decorative ship silhouette */}
         <img
@@ -55,20 +72,34 @@ export function Home() {
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <img
-              src={logoImg}
-              alt="Salty Pirate Water Park"
-              className="h-24 md:h-36 w-auto mx-auto mb-4 drop-shadow-2xl"
-            />
+            <div className="logo-shimmer-container h-24 md:h-36 w-auto mx-auto mb-4">
+              <img
+                src={logoImg}
+                alt="Salty Pirate Water Park"
+                className="h-full w-auto drop-shadow-2xl block"
+              />
+              <div
+                className="logo-shimmer-mask"
+                style={{
+                  maskImage: `url(${logoImg})`,
+                  WebkitMaskImage: `url(${logoImg})`,
+                }}
+              >
+                <div className="logo-shimmer-beam" ref={shimmerBeamRef} />
+              </div>
+            </div>
             <h1
               className="text-4xl md:text-6xl lg:text-7xl mb-3 leading-none"
-              style={{ color: '#f0ddb4', textShadow: '0 2px 16px rgba(0,0,0,0.6)' }}
+              style={{
+                color: '#1a0e04',
+                textShadow: '1px 2px 0 #d4af37, 2px 4px 0 rgba(180,130,10,0.55), 0 6px 20px rgba(180,120,0,0.25)',
+              }}
             >
               Set Sail for Summer Fun
             </h1>
             <p
               className="text-base md:text-lg mb-6 max-w-2xl mx-auto"
-              style={{ color: 'rgba(240,221,180,0.8)', fontFamily: 'var(--font-heading)', letterSpacing: '0.05em' }}
+              style={{ color: '#2a1810', fontFamily: 'var(--font-heading)', letterSpacing: '0.05em' }}
             >
               Salty Pirate Water Park returns for another season of family adventure in Emerald Isle, NC.
             </p>
@@ -92,15 +123,18 @@ export function Home() {
                 to="/explore"
                 className="px-8 py-4 inline-flex items-center justify-center gap-2 text-sm font-heading tracking-wide transition-all hover:scale-105"
                 style={{
-                  background: 'rgba(240,221,180,0.08)',
-                  color: '#f0ddb4',
-                  border: '2px solid rgba(240,221,180,0.3)',
-                  boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
+                  background: 'rgba(26,14,4,0.78)',
+                  color: '#d4af37',
+                  border: '2px solid rgba(212,175,55,0.6)',
+                  boxShadow: '0 4px 16px rgba(0,0,0,0.35)',
                   borderRadius: '2px',
                 }}
               >
                 Explore the Park
-                <Waves className="w-5 h-5" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style={{ flexShrink: 0 }}>
+                  <path d="M0 0h24v24H0z" fill="none" />
+                  <path fill="currentColor" d="m8.154 15.846l5.808-1.884l1.884-5.808l-5.807 1.885zm3.842-2.73q-.467 0-.79-.327q-.321-.327-.321-.793q0-.467.326-.79q.327-.321.793-.321q.467 0 .79.326q.322.327.322.793q0 .467-.327.79q-.327.322-.793.322M12.003 21q-1.867 0-3.51-.708q-1.643-.709-2.859-1.924t-1.925-2.856T3 12.003t.709-3.51Q4.417 6.85 5.63 5.634t2.857-1.925T11.997 3t3.51.709q1.643.708 2.859 1.922t1.925 2.857t.709 3.509t-.708 3.51t-1.924 2.859t-2.856 1.925t-3.509.709M12 20q3.344 0 5.672-2.328T20 12t-2.328-5.672T12 4T6.328 6.328T4 12t2.328 5.672T12 20m0-8" />
+                </svg>
               </Link>
             </div>
 
@@ -113,10 +147,10 @@ export function Home() {
             <div
               className="mt-5 inline-block mx-auto px-8 py-5 text-center"
               style={{
-                background: 'rgba(240,221,180,0.07)',
-                border: '1px solid rgba(212,175,55,0.35)',
+                background: 'rgba(26,14,4,0.72)',
+                border: '1px solid rgba(212,175,55,0.45)',
                 borderRadius: '2px',
-                boxShadow: 'inset 0 0 30px rgba(212,175,55,0.05)',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.3), inset 0 0 30px rgba(212,175,55,0.05)',
               }}
             >
               <div
@@ -135,7 +169,7 @@ export function Home() {
               >
                 Memorial Day Weekend 2026
               </h3>
-              <p className="text-sm mt-2" style={{ color: 'rgba(240,221,180,0.55)', fontFamily: 'var(--font-heading)' }}>
+              <p className="text-sm mt-2" style={{ color: 'rgba(240,221,180,0.65)', fontFamily: 'var(--font-heading)' }}>
                 Follow us for opening announcements
               </p>
             </div>
@@ -144,9 +178,10 @@ export function Home() {
       </section>
 
       <TornEdge fill={PARCHMENT} />
+      </div>{/* end hero background wrapper */}
 
       {/* ── Quick Info ── */}
-      <section className="py-14 parchment-bg">
+      <section className="py-14" style={{ background: PARCHMENT }}>
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
@@ -155,17 +190,21 @@ export function Home() {
               { icon: DollarSign, title: 'Pricing', detail: 'From $17 per person', color: '#ee6352' },
               { icon: Navigation, title: 'Directions', detail: 'Emerald Isle, NC', color: '#d4af37' },
             ].map((item, i) => (
-              <div key={i} className="aged-card p-6 hover:shadow-xl transition-shadow" style={{ borderRadius: '2px' }}>
-                <item.icon className="w-9 h-9 mb-3" style={{ color: item.color }} />
-                <h3 className="font-heading text-base mb-1" style={{ color: '#2a1810' }}>{item.title}</h3>
-                <p className="text-sm" style={{ color: '#5a4030', fontFamily: 'var(--font-body)' }}>{item.detail}</p>
+              <div key={i} className="aged-card p-6 hover:shadow-xl transition-shadow relative overflow-hidden" style={{ borderRadius: '2px' }}>
+                {/* Large background icon */}
+                <item.icon
+                  className="absolute -bottom-3 -right-3 w-24 h-24 pointer-events-none"
+                  style={{ color: item.color, opacity: 0.1 }}
+                />
+                <h3 className="font-heading text-base font-bold mb-1 relative" style={{ color: '#2a1810' }}>{item.title}</h3>
+                <p className="text-sm relative" style={{ color: '#5a4030', fontFamily: 'var(--font-body)' }}>{item.detail}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <TornEdge fill={CREAM} />
+      <TornEdge fill={CREAM} fromColor={PARCHMENT} />
 
       {/* ── Captain's Forecast ── */}
       <section className="py-14" style={{ background: CREAM }}>
@@ -187,10 +226,10 @@ export function Home() {
         </div>
       </section>
 
-      <TornEdge fill={PARCHMENT} />
+      <TornEdge fill={PARCHMENT} fromColor={CREAM} />
 
       {/* ── Park Highlights ── */}
-      <section className="py-16 parchment-bg">
+      <section className="py-16" style={{ background: PARCHMENT }}>
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2
@@ -241,30 +280,7 @@ export function Home() {
         </div>
       </section>
 
-      <TornEdge fill={DARK_WOOD} />
-
-      {/* ── Countdown ── */}
-      <section
-        className="py-16 relative overflow-hidden"
-        style={{ background: `linear-gradient(160deg, ${DARK_WOOD} 0%, #0c2340 100%)` }}
-      >
-        <img
-          src={pirateShipImg}
-          alt=""
-          aria-hidden="true"
-          className="absolute left-0 bottom-0 h-48 opacity-10 select-none pointer-events-none scale-x-[-1]"
-          style={{ filter: 'brightness(3)' }}
-        />
-        <div className="container mx-auto px-4 relative z-10">
-          <Countdown
-            targetDate={memorialDay2026}
-            title="Countdown to Opening Day"
-            subtitle="Set sail with us Memorial Day weekend"
-          />
-        </div>
-      </section>
-
-      <TornEdge fill={CREAM} />
+      <TornEdge fill={CREAM} fromColor={PARCHMENT} />
 
       {/* ── Pricing ── */}
       <section className="py-16" style={{ background: CREAM }}>
@@ -283,16 +299,16 @@ export function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {[
-              { title: 'Day Tickets', price: '$22', detail: 'Ages 6 and up', badge: 'Most Popular' },
-              { title: 'Weekly Pass', price: '$60', detail: '7 consecutive days', badge: 'Best for Vacations' },
-              { title: 'Season Pass', price: '$125', detail: 'All season long', badge: 'Best Value' },
+              { title: 'Day Tickets', price: '$22', detail: 'Ages 6 and up', badge: 'Most Popular', coinFilter: 'brightness(0.65) sepia(0.3)' },
+              { title: 'Weekly Pass', price: '$60', detail: '7 consecutive days', badge: 'Best for Vacations', coinFilter: 'brightness(0.85) sepia(0.1)' },
+              { title: 'Season Pass', price: '$125', detail: 'All season long', badge: 'Best Value', coinFilter: 'brightness(1.15) saturate(1.2)' },
             ].map((option, i) => (
               <div
                 key={i}
-                className="aged-card p-6 text-center relative"
-                style={{ borderRadius: '2px' }}
+                className="aged-card pricing-card p-6 text-center relative"
+                style={{ borderRadius: '2px', ['--coin-filter' as string]: option.coinFilter }}
               >
-                <img src={coinImg} alt="" aria-hidden="true" className="h-10 w-10 mx-auto mb-3 opacity-60" />
+                <img src={coinImg} alt="" aria-hidden="true" className="pricing-coin h-10 w-10 mx-auto mb-3" style={{ filter: option.coinFilter }} />
                 <div
                   className="inline-block px-4 py-1 text-xs font-heading tracking-wide mb-3"
                   style={{
@@ -333,10 +349,10 @@ export function Home() {
         </div>
       </section>
 
-      <TornEdge fill={PARCHMENT} />
+      <TornEdge fill={PARCHMENT} fromColor={CREAM} />
 
       {/* ── Nearby Fun ── */}
-      <section className="py-16 parchment-bg">
+      <section className="py-16" style={{ background: PARCHMENT }}>
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2
@@ -382,6 +398,72 @@ export function Home() {
               Discover Nearby Fun
               <ArrowRight className="w-4 h-4" />
             </Link>
+          </div>
+        </div>
+      </section>
+
+      <TornEdge fill={DARK_WOOD} fromColor={PARCHMENT} />
+
+      {/* ── Ship Store ── */}
+      <section
+        className="py-10 md:py-12"
+        style={{
+          background: DARK_WOOD,
+          borderTop: '1px solid rgba(212,175,55,0.15)',
+          borderBottom: '1px solid rgba(212,175,55,0.15)',
+        }}
+      >
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10">
+            {/* Coin + text */}
+            <div className="flex items-center gap-5">
+              <img
+                src={coinImg}
+                alt=""
+                aria-hidden="true"
+                className="h-14 w-14 flex-shrink-0"
+                style={{ filter: 'brightness(1.1) saturate(1.2) drop-shadow(0 0 8px rgba(212,175,55,0.4))' }}
+              />
+              <div>
+                <p
+                  className="text-xs tracking-widest uppercase mb-1"
+                  style={{ color: '#d4af37', fontFamily: 'var(--font-heading)' }}
+                >
+                  Official Merchandise
+                </p>
+                <h2
+                  className="text-2xl md:text-3xl mb-1"
+                  style={{ color: '#f0ddb4', fontFamily: 'var(--font-display)' }}
+                >
+                  Salty Pirate Ship Store
+                </h2>
+                <p
+                  className="text-sm max-w-md"
+                  style={{ color: 'rgba(245,230,180,0.65)', fontFamily: 'var(--font-heading)', lineHeight: '1.7' }}
+                >
+                  Fly the colors of the crew with official Salty Pirate gear — tees, tanks, totes, and more for every swashbuckler in the family.
+                </p>
+              </div>
+            </div>
+
+            {/* CTA */}
+            <a
+              href="https://www.saltypiratestore.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-shrink-0 inline-flex items-center gap-2 px-8 py-3 text-sm font-heading tracking-wide transition-all hover:scale-105"
+              style={{
+                background: 'linear-gradient(135deg, #c1860a, #d4af37)',
+                color: DARK_WOOD,
+                border: '1px solid rgba(212,175,55,0.5)',
+                borderRadius: '2px',
+                boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              Shop Now
+              <ArrowRight className="w-4 h-4" />
+            </a>
           </div>
         </div>
       </section>

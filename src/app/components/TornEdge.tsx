@@ -1,40 +1,48 @@
 interface TornEdgeProps {
   fill: string;
+  fromColor?: string;
   flip?: boolean;
   className?: string;
 }
 
-// Three distinct torn-paper paths so adjacent edges look different
+const TILE_W = 360;
+
+// 360px-wide paths that start and end at the same y so they tile seamlessly with repeat-x
 const PATHS = [
-  // Path A – larger, dramatic tears
-  'M0,42 L22,28 L36,38 L52,16 L66,32 L82,20 L96,36 L114,12 L128,28 L144,22 L160,38 L178,8 L194,26 L212,34 L228,14 L244,30 L260,18 L278,38 L294,24 L310,10 L328,32 L344,22 L362,40 L378,16 L394,28 L412,20 L428,36 L446,8 L462,26 L480,34 L496,14 L512,30 L528,18 L546,40 L562,22 L578,32 L596,12 L612,28 L630,20 L646,36 L664,10 L680,26 L698,34 L714,16 L730,28 L748,22 L764,38 L780,8 L796,24 L814,36 L830,14 L846,30 L862,20 L880,40 L896,16 L912,28 L930,18 L946,34 L964,10 L980,26 L998,36 L1014,14 L1030,30 L1048,20 L1064,38 L1082,8 L1098,26 L1116,34 L1132,14 L1148,30 L1164,18 L1182,38 L1198,22 L1214,32 L1232,10 L1248,28 L1266,20 L1282,36 L1300,12 L1316,26 L1334,36 L1350,14 L1366,28 L1384,20 L1400,36 L1416,10 L1430,26 L1440,32 L1440,56 L0,56 Z',
-  // Path B – tighter, finer tears
-  'M0,36 L14,26 L24,34 L34,20 L46,30 L58,18 L68,32 L80,22 L92,36 L104,14 L118,28 L130,22 L142,34 L156,16 L168,28 L180,20 L192,34 L206,24 L218,12 L232,30 L244,22 L256,36 L270,18 L282,28 L296,20 L308,32 L322,10 L336,26 L348,34 L360,18 L374,28 L386,22 L400,36 L414,14 L426,26 L440,20 L452,34 L466,22 L480,32 L494,14 L508,28 L522,20 L536,34 L550,12 L564,26 L578,34 L592,18 L606,28 L620,20 L634,32 L648,10 L662,26 L676,34 L690,18 L704,28 L718,22 L732,36 L746,14 L760,26 L774,18 L788,32 L802,22 L816,36 L830,16 L844,28 L860,20 L874,34 L890,12 L904,26 L918,36 L932,16 L946,28 L962,20 L976,34 L990,14 L1006,26 L1020,34 L1034,18 L1050,28 L1064,20 L1080,34 L1094,10 L1108,26 L1124,32 L1138,18 L1154,28 L1168,20 L1184,34 L1198,14 L1214,26 L1228,36 L1244,16 L1258,28 L1274,18 L1290,32 L1306,12 L1320,26 L1336,34 L1352,16 L1368,28 L1384,22 L1400,34 L1416,12 L1430,26 L1440,30 L1440,56 L0,56 Z',
-  // Path C – mixed, uneven
-  'M0,40 L20,24 L32,36 L48,14 L58,28 L74,18 L88,38 L102,20 L118,32 L132,10 L148,26 L164,36 L176,16 L190,30 L206,22 L220,38 L236,12 L252,28 L266,20 L280,36 L296,18 L310,30 L326,8 L340,26 L358,38 L374,16 L388,28 L404,20 L418,36 L436,14 L450,26 L468,34 L484,18 L498,30 L514,20 L530,38 L546,10 L560,28 L576,36 L592,14 L608,30 L624,22 L638,38 L654,8 L670,24 L688,36 L702,16 L718,28 L734,20 L750,36 L768,12 L782,26 L798,38 L812,18 L828,30 L844,20 L860,38 L876,10 L892,26 L908,36 L924,16 L940,28 L956,20 L972,36 L990,12 L1004,28 L1020,38 L1036,16 L1052,30 L1068,22 L1084,36 L1100,8 L1116,24 L1134,36 L1150,14 L1166,28 L1182,20 L1198,38 L1214,10 L1230,26 L1248,36 L1264,16 L1280,28 L1296,22 L1314,38 L1330,14 L1344,28 L1360,20 L1378,36 L1396,12 L1412,28 L1440,34 L1440,56 L0,56 Z',
+  // A – dramatic peaks
+  'M0,40 L15,25 L28,35 L42,15 L55,30 L68,20 L82,38 L95,18 L110,30 L122,10 L136,26 L150,36 L162,16 L178,28 L192,20 L206,36 L220,12 L234,28 L248,22 L262,36 L278,16 L292,30 L306,20 L320,38 L334,12 L348,26 L360,40 L360,56 L0,56 Z',
+  // B – finer teeth
+  'M0,36 L14,24 L26,34 L38,18 L52,28 L64,16 L76,30 L90,20 L104,34 L116,12 L130,26 L142,22 L156,36 L170,14 L184,26 L198,18 L212,34 L226,22 L240,10 L254,28 L268,20 L282,34 L296,16 L310,26 L324,18 L338,32 L352,22 L360,36 L360,56 L0,56 Z',
+  // C – mixed/uneven
+  'M0,38 L18,22 L32,34 L46,12 L58,26 L72,16 L86,36 L100,18 L116,30 L130,8 L144,24 L160,34 L174,14 L188,28 L202,20 L218,36 L232,10 L246,26 L260,36 L274,14 L288,28 L302,20 L318,36 L332,8 L346,24 L360,38 L360,56 L0,56 Z',
 ];
 
 let pathIndex = 0;
 
-export function TornEdge({ fill, flip = false, className = '' }: TornEdgeProps) {
+function makeBgImage(path: string, fill: string): string {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${TILE_W} 56"><path d="${path}" fill="${fill}"/></svg>`;
+  return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+}
+
+export function TornEdge({ fill, fromColor, flip = false, className = '' }: TornEdgeProps) {
   const path = PATHS[pathIndex % PATHS.length];
   pathIndex++;
 
   return (
     <div
-      className={`relative w-full pointer-events-none ${className}`}
-      style={{ height: '56px', marginTop: '-2px', marginBottom: '-2px' }}
+      className={`w-full pointer-events-none ${className}`}
+      style={{
+        height: '56px',
+        marginTop: '-1px',
+        marginBottom: '-1px',
+        backgroundColor: fromColor ?? 'transparent',
+        backgroundImage: makeBgImage(path, fill),
+        backgroundRepeat: 'repeat-x',
+        backgroundSize: `${TILE_W}px 56px`,
+        backgroundPosition: 'left bottom',
+        ...(flip ? { transform: 'scaleY(-1)' } : {}),
+      }}
       aria-hidden="true"
-    >
-      <svg
-        viewBox="0 0 1440 56"
-        xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="none"
-        className="absolute inset-0 w-full h-full"
-        style={flip ? { transform: 'scaleY(-1)' } : undefined}
-      >
-        <path d={path} fill={fill} />
-      </svg>
-    </div>
+    />
   );
 }

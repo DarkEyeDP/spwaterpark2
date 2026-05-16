@@ -12,6 +12,7 @@ export function Header() {
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
   const location = useLocation();
   const { heroVisible } = useHeroWeather();
+  const showWeatherChip = location.pathname !== '/' || !heroVisible;
 
   const navLinks = [
     { to: '/', label: 'Home' },
@@ -42,14 +43,24 @@ export function Header() {
 
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <img
-              src={logoImg}
-              alt="Salty Pirate Water Park"
-              className="h-14 w-auto drop-shadow-lg group-hover:scale-105 transition-transform"
-            />
-          </Link>
+          {/* Logo + Est. badge */}
+          <div className="flex items-center gap-3">
+            <div
+              className="hidden lg:flex flex-col items-center leading-none select-none"
+              style={{ opacity: 0.7 }}
+            >
+              <span style={{ fontFamily: 'var(--font-heading)', fontSize: '0.55rem', letterSpacing: '0.18em', color: '#d4af37', textTransform: 'uppercase' }}>Est.</span>
+              <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.05rem', color: '#d4af37', lineHeight: 1 }}>1977</span>
+              <div className="w-8 h-px mt-0.5" style={{ background: 'linear-gradient(90deg, transparent, #d4af37, transparent)' }} />
+            </div>
+            <Link to="/" className="flex items-center group">
+              <img
+                src={logoImg}
+                alt="Salty Pirate Water Park"
+                className="h-14 w-auto drop-shadow-lg group-hover:scale-105 transition-transform"
+              />
+            </Link>
+          </div>
 
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-0.5">
@@ -76,15 +87,14 @@ export function Header() {
           </nav>
 
           {/* Right side — weather chip + CTA/hamburger */}
-          <div className="flex items-start gap-2">
+          <div className="flex items-center gap-2">
             {/* Weather chip — slides in when hero chip scrolls out */}
             <div
-              className="transition-all duration-300 overflow-hidden"
+              className="transition-opacity duration-300"
               style={{
-                opacity: heroVisible ? 0 : 1,
-                transform: heroVisible ? 'translateY(-6px)' : 'translateY(0)',
-                maxWidth: heroVisible ? '0px' : '220px',
-                pointerEvents: heroVisible ? 'none' : 'auto',
+                opacity: showWeatherChip ? 1 : 0,
+                visibility: showWeatherChip ? 'visible' : 'hidden',
+                pointerEvents: showWeatherChip ? 'auto' : 'none',
               }}
             >
               <div className="flex flex-col items-center gap-0.5">
@@ -105,13 +115,21 @@ export function Header() {
 
             <Link
               to="/plan-your-visit"
-              className="hidden lg:block px-5 py-2 text-sm font-heading tracking-wide transition-all"
+              className="hidden lg:block px-5 py-2 text-sm font-heading tracking-wide transition-all hover:scale-105 hover:shadow-lg"
               style={{
                 background: 'linear-gradient(135deg, #c1860a 0%, #d4af37 50%, #b8770a 100%)',
                 color: '#1a0e04',
                 border: '1px solid rgba(212,175,55,0.6)',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.15)',
                 borderRadius: '2px',
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLAnchorElement).style.background = 'linear-gradient(135deg, #d4991a 0%, #e8c44a 50%, #c98a1a 100%)';
+                (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 4px 16px rgba(0,0,0,0.45), 0 0 12px rgba(212,175,55,0.3), inset 0 1px 0 rgba(255,255,255,0.2)';
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLAnchorElement).style.background = 'linear-gradient(135deg, #c1860a 0%, #d4af37 50%, #b8770a 100%)';
+                (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 2px 8px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.15)';
               }}
             >
               Plan Your Visit
@@ -122,15 +140,40 @@ export function Header() {
               className="lg:hidden p-2 text-amber-100 hover:text-gold-treasure transition-colors rounded self-center"
               aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              <span className="relative block w-6 h-6">
+                <Menu
+                  className="absolute inset-0 w-6 h-6 transition-all duration-200"
+                  style={{
+                    opacity: mobileMenuOpen ? 0 : 1,
+                    transform: mobileMenuOpen ? 'rotate(90deg) scale(0.6)' : 'rotate(0deg) scale(1)',
+                  }}
+                />
+                <X
+                  className="absolute inset-0 w-6 h-6 transition-all duration-200"
+                  style={{
+                    opacity: mobileMenuOpen ? 1 : 0,
+                    transform: mobileMenuOpen ? 'rotate(0deg) scale(1)' : 'rotate(-90deg) scale(0.6)',
+                  }}
+                />
+              </span>
             </button>
           </div>
         </div>
 
-        {mobileMenuOpen && (
+        <div
+          className="lg:hidden grid"
+          style={{ gridTemplateRows: mobileMenuOpen ? '1fr' : '0fr' }}
+        >
+          <div className="overflow-hidden">
           <nav
-            className="lg:hidden py-4"
-            style={{ borderTop: '1px solid rgba(212,175,55,0.2)' }}
+            className="py-4"
+            style={{
+              borderTop: '1px solid rgba(212,175,55,0.2)',
+              opacity: mobileMenuOpen ? 1 : 0,
+              transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-8px)',
+              transition: 'opacity 200ms ease-out, transform 200ms ease-out',
+              willChange: 'opacity, transform',
+            }}
           >
             {navLinks.map((link) => (
               <Link
@@ -147,7 +190,8 @@ export function Header() {
               </Link>
             ))}
           </nav>
-        )}
+          </div>
+        </div>
       </div>
 
       {/* Gold rope accent line */}

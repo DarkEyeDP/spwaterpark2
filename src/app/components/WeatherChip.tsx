@@ -101,10 +101,11 @@ export function WeatherChip({ compact = false }: WeatherChipProps) {
     <div
       className="inline-flex items-center gap-3 px-5 py-3"
       style={{
-        background: 'rgba(240,221,180,0.08)',
-        border: '1px solid rgba(212,175,55,0.25)',
+        background: 'rgba(26,14,4,0.75)',
+        border: '1px solid rgba(212,175,55,0.45)',
         borderRadius: '2px',
-        backdropFilter: 'blur(4px)',
+        backdropFilter: 'blur(6px)',
+        boxShadow: '0 2px 12px rgba(0,0,0,0.25)',
       }}
     >
       <Icon className="w-5 h-5 flex-shrink-0" style={{ color }} />
@@ -116,25 +117,25 @@ export function WeatherChip({ compact = false }: WeatherChipProps) {
       </span>
       <span
         className="text-xs"
-        style={{ color: 'rgba(240,221,180,0.5)', fontFamily: 'var(--font-heading)' }}
+        style={{ color: 'rgba(240,221,180,0.4)', fontFamily: 'var(--font-heading)' }}
       >
         ·
       </span>
       <span
         className="text-sm"
-        style={{ color: 'rgba(240,221,180,0.85)', fontFamily: 'var(--font-heading)' }}
+        style={{ color: 'rgba(240,221,180,0.9)', fontFamily: 'var(--font-heading)' }}
       >
         {data.temperature}°F
       </span>
       <span
         className="text-xs"
-        style={{ color: 'rgba(240,221,180,0.5)', fontFamily: 'var(--font-heading)' }}
+        style={{ color: 'rgba(240,221,180,0.4)', fontFamily: 'var(--font-heading)' }}
       >
         ·
       </span>
       <span
         className="text-sm"
-        style={{ color: 'rgba(240,221,180,0.75)', fontFamily: 'var(--font-heading)' }}
+        style={{ color: 'rgba(240,221,180,0.8)', fontFamily: 'var(--font-heading)' }}
       >
         {data.rainChance}% rain
       </span>

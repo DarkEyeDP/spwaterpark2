@@ -91,8 +91,8 @@ export function Updates() {
       {/* Page header */}
       <div className="text-center py-10 px-4" style={{ background: `linear-gradient(180deg, #120a02 0%, ${DARK_WOOD} 100%)`, borderBottom: `2px solid #6b4a1e` }}>
         <div className="w-full h-px mb-6" style={{ background: 'linear-gradient(90deg, transparent, #d4af37 30%, #d4af37 70%, transparent)' }} />
-        <h1 className="text-4xl md:text-5xl mb-3" style={{ fontFamily: 'var(--font-display)', color: PARCHMENT, textShadow: '0 2px 12px rgba(0,0,0,0.5)' }}>
-          Captain's Log
+        <h1 className="text-4xl md:text-5xl mb-3" style={{ fontFamily: 'var(--font-display)', filter: 'drop-shadow(0 2px 10px rgba(0,0,0,0.55))' }}>
+          <span className="hero-title-shimmer">Captain's Log</span>
         </h1>
         <p style={{ fontFamily: 'var(--font-heading)', fontSize: '0.85rem', letterSpacing: '0.08em', color: 'rgba(240,221,180,0.6)' }}>
           Official records of the Salty Pirate Water Park — Emerald Isle, NC

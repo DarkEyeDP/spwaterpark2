@@ -3,6 +3,7 @@ import { Header } from './Header';
 import { Footer } from './Footer';
 import { StatusBanner } from './StatusBanner';
 import { ScrollToTop } from './ScrollToTop';
+import { Compass } from './Compass';
 import { HeroWeatherProvider } from '../context/HeroWeatherContext';
 import type { ParkStatus } from './StatusBanner';
 
@@ -30,6 +31,12 @@ export function Root() {
           <Outlet />
         </main>
         <Footer />
+      </div>
+      <div
+        className="fixed bottom-5 left-5 z-50 hidden lg:block opacity-70 hover:opacity-100 transition-opacity"
+        style={{ filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.45))' }}
+      >
+        <Compass size={72} />
       </div>
     </HeroWeatherProvider>
   );
