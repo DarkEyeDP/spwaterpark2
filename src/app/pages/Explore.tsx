@@ -32,6 +32,7 @@ interface Attraction {
 
 const MAP_WIDTH  = 1586;
 const MAP_HEIGHT = 992;
+const PARK_MAP_IMAGE = `${import.meta.env.BASE_URL}salty-pirate-park-map.jpeg`;
 
 function mapPercent(value: number, total: number) {
   return `${(value / total) * 100}%`;
@@ -139,7 +140,7 @@ export function Explore() {
               }}
             >
               <img
-                src="/salty-pirate-park-map.jpeg"
+                src={PARK_MAP_IMAGE}
                 alt="Salty Pirate Water Park illustrated map"
                 className="w-full h-auto block"
                 draggable={false}
@@ -312,7 +313,7 @@ export function Explore() {
               onClick={e => e.stopPropagation()}
             >
               <img
-                src="/salty-pirate-park-map.jpeg"
+                src={PARK_MAP_IMAGE}
                 alt="Salty Pirate Water Park illustrated map"
                 className="w-full h-auto block shadow-2xl"
                 style={{ borderRadius: '2px', border: '3px solid rgba(212,175,55,0.4)' }}

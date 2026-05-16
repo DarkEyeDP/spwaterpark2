@@ -18,6 +18,8 @@ import coinImg from '@/assets/coin.svg';
 const DARK_WOOD = '#1a0e04';
 const PARCHMENT = '#f0ddb4';
 const CREAM = '#f8edd6';
+const heroAvif = `${import.meta.env.BASE_URL}beach-background.avif`;
+const heroJpeg = `${import.meta.env.BASE_URL}beach-background-optimized.jpg`;
 
 export function Home() {
   useSEO({
@@ -51,8 +53,8 @@ export function Home() {
   const heroBg = {
     backgroundImage: `
       image-set(
-        url('/beach-background.avif') type('image/avif'),
-        url('/beach-background-optimized.jpg') type('image/jpeg')
+        url('${heroAvif}') type('image/avif'),
+        url('${heroJpeg}') type('image/jpeg')
       )`,
     backgroundSize: 'cover',
     backgroundPosition: 'center 30%',
