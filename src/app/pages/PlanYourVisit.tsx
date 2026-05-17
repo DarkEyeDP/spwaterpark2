@@ -1,4 +1,3 @@
-import { Link } from 'react-router';
 import { useSEO } from '../hooks/useSEO';
 import { Clock, MapPin, Shirt, Droplets, Sun, Users, ChevronDown, Anchor } from 'lucide-react';
 import { useState } from 'react';

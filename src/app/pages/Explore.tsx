@@ -7,7 +7,6 @@ import { motion, AnimatePresence } from 'motion/react';
 
 const DARK_WOOD = '#1a0e04';
 const PARCHMENT  = '#f0ddb4';
-const CREAM      = '#f8edd6';
 
 type AttractionId = 'captains-plunge' | 'blackbeards-twist' | 'pirates-cove' | 'entrance';
 

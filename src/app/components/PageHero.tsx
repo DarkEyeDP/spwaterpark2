@@ -5,7 +5,6 @@ interface PageHeroProps {
 }
 
 const DARK_WOOD = '#1a0e04';
-const PARCHMENT = '#f0ddb4';
 
 export function PageHero({ title, subtitle, eyebrow }: PageHeroProps) {
   return (

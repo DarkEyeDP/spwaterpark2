@@ -9,7 +9,6 @@ const DARK_WOOD = '#1a0e04';
 const GOLD = '#d4af37';
 const PARCHMENT = '#f0ddb4';
 const CREAM = '#f8edd6';
-const TICKET_SECTION_BOTTOM = '#1c1008';
 
 function RopeLine({ dim = false }) {
   return (

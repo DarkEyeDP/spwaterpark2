@@ -6,7 +6,8 @@
   "scripts": {
     "build": "vite build",
     "dev": "vite",
-    "export-page": "node scripts/export-page.js"
+    "export-page": "node scripts/export-page.js",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@emotion/react": "11.14.0",
@@ -66,7 +67,11 @@
     "vaul": "1.1.2"
   },
   "devDependencies": {
+    "@eslint/js": "^9.27.0",
     "@tailwindcss/vite": "4.1.12",
+    "eslint": "^9.27.0",
+    "globals": "^16.0.0",
+    "typescript-eslint": "^8.32.0",
     "@vitejs/plugin-react": "4.7.0",
     "puppeteer": "^24.42.0",
     "tailwindcss": "4.1.12",
