@@ -13,7 +13,6 @@ const secondaryLinks = [
   { to: '/nearby', label: 'Nearby Fun' },
   { to: '/updates', label: 'Updates' },
   { to: '/contact', label: 'Contact' },
-  { to: '/site-map', label: 'Site Map' },
 ];
 
 const legalLinks = [
@@ -36,38 +35,40 @@ export function Footer() {
       />
 
       <div className="container mx-auto px-4 py-8 md:py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 md:gap-8">
-          <div>
-            <img src={logoImg} alt="Salty Pirate Water Park" className="h-12 md:h-16 w-auto mb-3 opacity-90" />
-            <div className="space-y-2">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-6 md:gap-8">
+          <div className="col-span-2 lg:col-span-1">
+            <div className="flex flex-col items-center text-center">
+              <img src={logoImg} alt="Salty Pirate Water Park" className="h-24 md:h-28 w-auto mb-5 opacity-90" />
+            </div>
+            <div className="space-y-3 max-w-sm mx-auto">
               <a
                 href="https://maps.google.com/?q=8915+Reed+Dr,+Emerald+Isle,+NC+28594"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-start gap-2 text-sm transition-colors hover:text-amber-200"
+                className="flex items-start justify-start gap-3 text-base transition-colors hover:text-amber-200"
                 style={{ color: 'rgba(245,230,180,0.7)' }}
               >
-                <MapPin className="w-4 h-4 mt-1 flex-shrink-0" style={{ color: '#d4af37' }} />
-                <span className="footer-link">
+                <MapPin className="w-5 h-5 mt-1 flex-shrink-0" style={{ color: '#d4af37' }} />
+                <span className="footer-link text-left leading-snug" style={{ fontSize: 'clamp(1rem, 3.4vw, 1.15rem)' }}>
                   8915 Reed Dr<br />
                   Emerald Isle, NC 28594
                 </span>
               </a>
               <a
                 href="tel:+12523542609"
-                className="flex items-center gap-2 text-sm transition-colors hover:text-amber-200"
+                className="flex items-center justify-start gap-3 text-base transition-colors hover:text-amber-200"
                 style={{ color: 'rgba(245,230,180,0.7)' }}
               >
-                <Phone className="w-4 h-4 flex-shrink-0" style={{ color: '#d4af37' }} />
-                <span className="footer-link">(252) 354-2609</span>
+                <Phone className="w-5 h-5 flex-shrink-0" style={{ color: '#d4af37' }} />
+                <span className="footer-link whitespace-nowrap" style={{ fontSize: 'clamp(1rem, 3.4vw, 1.15rem)' }}>(252) 354-2609</span>
               </a>
               <a
                 href="mailto:saltypiratewaterpark@gmail.com"
-                className="flex items-center gap-2 text-sm transition-colors hover:text-amber-200"
+                className="flex items-center justify-start gap-3 text-base transition-colors hover:text-amber-200"
                 style={{ color: 'rgba(245,230,180,0.7)' }}
               >
-                <Mail className="w-4 h-4 flex-shrink-0" style={{ color: '#d4af37' }} />
-                <span className="footer-link" style={{ fontSize: '0.75rem' }}>saltypiratewaterpark@gmail.com</span>
+                <Mail className="w-5 h-5 flex-shrink-0" style={{ color: '#d4af37' }} />
+                <span className="footer-link whitespace-nowrap" style={{ fontSize: 'clamp(0.8rem, 2.9vw, 1rem)' }}>saltypiratewaterpark@gmail.com</span>
               </a>
             </div>
           </div>
@@ -96,10 +97,11 @@ export function Footer() {
 
           <div>
             <h3
-              className="font-heading text-sm tracking-widest uppercase mb-4"
-              style={{ color: '#d4af37' }}
+              className="font-heading text-sm tracking-widest uppercase mb-4 text-center"
+              style={{ color: '#d4af37', visibility: 'hidden' }}
+              aria-hidden="true"
             >
-              Site Map
+              Park Pages
             </h3>
             <ul className="space-y-2 text-sm">
               {secondaryLinks.map((l) => (
