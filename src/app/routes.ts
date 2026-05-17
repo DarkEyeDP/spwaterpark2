@@ -8,6 +8,8 @@ import { Nearby } from './pages/Nearby';
 import { Updates } from './pages/Updates';
 import { Contact } from './pages/Contact';
 import { NotFound } from './pages/NotFound';
+import { SiteMap } from './pages/SiteMap';
+import { PrivacyPolicy } from './pages/PrivacyPolicy';
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +23,8 @@ export const router = createBrowserRouter([
       { path: 'nearby', Component: Nearby },
       { path: 'updates', Component: Updates },
       { path: 'contact', Component: Contact },
+      { path: 'site-map', Component: SiteMap },
+      { path: 'privacy-policy', Component: PrivacyPolicy },
       { path: '*', Component: NotFound },
     ],
   },

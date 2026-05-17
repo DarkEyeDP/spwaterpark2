@@ -2,6 +2,25 @@ import { Link } from 'react-router';
 import { Facebook, Instagram, MapPin, Phone, Mail } from 'lucide-react';
 import logoImg from '@/assets/logo.png';
 
+const primaryLinks = [
+  { to: '/', label: 'Home' },
+  { to: '/plan-your-visit', label: 'Plan Your Visit' },
+  { to: '/explore', label: 'Explore the Park' },
+  { to: '/pricing', label: 'Pricing' },
+];
+
+const secondaryLinks = [
+  { to: '/nearby', label: 'Nearby Fun' },
+  { to: '/updates', label: 'Updates' },
+  { to: '/contact', label: 'Contact' },
+  { to: '/site-map', label: 'Site Map' },
+];
+
+const legalLinks = [
+  { to: '/privacy-policy', label: 'Privacy Policy' },
+  { to: '/site-map', label: 'Site Map' },
+];
+
 export function Footer() {
   return (
     <footer
@@ -17,7 +36,7 @@ export function Footer() {
       />
 
       <div className="container mx-auto px-4 py-8 md:py-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 md:gap-8">
           <div>
             <img src={logoImg} alt="Salty Pirate Water Park" className="h-12 md:h-16 w-auto mb-3 opacity-90" />
             <div className="space-y-2">
@@ -58,15 +77,32 @@ export function Footer() {
               className="font-heading text-sm tracking-widest uppercase mb-4"
               style={{ color: '#d4af37' }}
             >
-              Quick Links
+              Park Pages
             </h3>
             <ul className="space-y-2 text-sm">
-              {[
-                { to: '/plan-your-visit', label: 'Plan Your Visit' },
-                { to: '/explore', label: 'Explore the Park' },
-                { to: '/pricing', label: 'Pricing' },
-                { to: '/nearby', label: 'Nearby Fun' },
-              ].map((l) => (
+              {primaryLinks.map((l) => (
+                <li key={l.to}>
+                  <Link
+                    to={l.to}
+                    className="footer-link transition-colors hover:text-amber-200"
+                    style={{ color: 'rgba(245,230,180,0.7)' }}
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3
+              className="font-heading text-sm tracking-widest uppercase mb-4"
+              style={{ color: '#d4af37' }}
+            >
+              Site Map
+            </h3>
+            <ul className="space-y-2 text-sm">
+              {secondaryLinks.map((l) => (
                 <li key={l.to}>
                   <Link
                     to={l.to}
@@ -87,22 +123,6 @@ export function Footer() {
             >
               Connect
             </h3>
-            <ul className="space-y-2 text-sm mb-4">
-              {[
-                { to: '/updates', label: 'Updates' },
-                { to: '/contact', label: 'Contact' },
-              ].map((l) => (
-                <li key={l.to}>
-                  <Link
-                    to={l.to}
-                    className="footer-link transition-colors hover:text-amber-200"
-                    style={{ color: 'rgba(245,230,180,0.7)' }}
-                  >
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
             <div className="flex gap-3">
               <a
                 href="https://facebook.com"
@@ -135,6 +155,24 @@ export function Footer() {
                 <Instagram className="w-4 h-4" />
               </a>
             </div>
+            <div className="mt-4">
+              <h4 className="font-heading text-xs tracking-widest uppercase mb-2" style={{ color: 'rgba(212,175,55,0.75)' }}>
+                Legal
+              </h4>
+              <ul className="space-y-2 text-sm">
+                {legalLinks.map((l) => (
+                  <li key={l.to}>
+                    <Link
+                      to={l.to}
+                      className="footer-link transition-colors hover:text-amber-200"
+                      style={{ color: 'rgba(245,230,180,0.7)' }}
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           <div>
@@ -165,6 +203,15 @@ export function Footer() {
           </p>
           <p className="mt-4 text-xs max-w-2xl mx-auto leading-relaxed" style={{ color: 'rgba(245,230,180,0.3)' }}>
             Salty Pirate Water Park is not responsible for personal injury, loss, or damage to property sustained while on the premises. Guests participate in all activities at their own risk. By entering the park, guests acknowledge and accept these terms.
+          </p>
+          <p className="mt-3 text-xs">
+            <Link to="/site-map" className="footer-link hover:text-amber-200" style={{ color: 'rgba(212,175,55,0.7)' }}>
+              Browse Site Map
+            </Link>
+            {' · '}
+            <Link to="/privacy-policy" className="footer-link hover:text-amber-200" style={{ color: 'rgba(212,175,55,0.7)' }}>
+              Privacy Policy
+            </Link>
           </p>
           <p className="mt-3 text-xs">
             &copy; {new Date().getFullYear()} Salty Pirate Water Park. All rights reserved.
