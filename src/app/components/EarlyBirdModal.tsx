@@ -149,7 +149,7 @@ export function EarlyBirdModal() {
             className="text-center text-xs mb-6"
             style={{ color: '#8a6a4a', fontFamily: 'var(--font-heading)', lineHeight: '1.7' }}
           >
-            Lock in your season pass at early bird pricing the weekend before opening day. Offer available in person only during sale hours.
+            Lock in your season pass at early bird pricing the weekend before opening day, May 23-24th. Offer available in person only during sale hours.
           </p>
 
           {/* CTA */}
