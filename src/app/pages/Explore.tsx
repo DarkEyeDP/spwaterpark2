@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSEO } from '../hooks/useSEO';
-import { Droplet, Waves, Users, MapPin, X, Anchor, Maximize2, Minimize2 } from 'lucide-react';
+import { Droplet, Waves, Users, MapPin, X, Anchor, Maximize2, Minimize2, Camera, ChevronLeft, ChevronRight } from 'lucide-react';
 import { PageHero } from '../components/PageHero';
 import { TornEdge } from '../components/TornEdge';
 import { motion, AnimatePresence } from 'motion/react';
@@ -29,9 +29,19 @@ interface Attraction {
   tip: string;
 }
 
+interface GalleryPhoto {
+  src: string;
+  width: number;
+  height: number;
+  title: string;
+  alt: string;
+  feature?: boolean;
+}
+
 const MAP_WIDTH  = 1586;
 const MAP_HEIGHT = 992;
 const PARK_MAP_IMAGE = `${import.meta.env.BASE_URL}salty-pirate-park-map.jpeg`;
+const GALLERY_BASE = `${import.meta.env.BASE_URL}explore-gallery/`;
 
 function mapPercent(value: number, total: number) {
   return `${(value / total) * 100}%`;
@@ -83,15 +93,120 @@ const attractions: Attraction[] = [
   },
 ];
 
+const galleryPhotos: GalleryPhoto[] = [
+  {
+    src: `${GALLERY_BASE}salty-pirate-water-park-sign.webp`,
+    width: 1360,
+    height: 1020,
+    title: 'Welcome Aboard',
+    // alt: 'Salty Pirate Water Park entrance sign on a grassy hill in Emerald Isle, North Carolina.',
+    feature: true,
+  },
+  {
+    src: `${GALLERY_BASE}overview-from-slide-tower.webp`,
+    width: 1360,
+    height: 1020,
+    title: "Older view from the Blackbeard's Twist",
+    // alt: 'High view over the Salty Pirate Water Park pools, lounge chairs, blue umbrellas, and slide runouts.',
+  },
+  {
+    src: `${GALLERY_BASE}captains-plunge-racing-slides.webp`,
+    width: 1360,
+    height: 1020,
+    title: "Captain's Plunge",
+    // alt: "Guests riding the three-lane Captain's Plunge body slides into the splash pool.",
+  },
+  {
+    src: `${GALLERY_BASE}blackbeards-twist-tube-slides.webp`,
+    width: 765,
+    height: 1020,
+    title: "Blackbeard's Twist",
+    // alt: "Green, blue, and yellow enclosed tube slides curving down into the pool at Blackbeard's Twist.",
+  },
+  {
+    src: `${GALLERY_BASE}slide-tower-sundeck-view.webp`,
+    width: 765,
+    height: 1020,
+    title: 'Lookout View of the Sundeck',
+    // alt: 'View from the slide tower over the Salty Pirate sundeck, lounge chairs, pools, and nearby coastal buildings.',
+  },
+  {
+    src: `${GALLERY_BASE}pirates-cove-ship-splash-area.webp`,
+    width: 1360,
+    height: 1020,
+    title: "Pirate's Cove",
+    // alt: "Children playing in Pirate's Cove beside the pirate ship splash structure, octopus mural, and water features.",
+    feature: true,
+  },
+  {
+    src: `${GALLERY_BASE}arcade-game-room.webp`,
+    width: 1360,
+    height: 1020,
+    title: 'Arcade Area',
+    // alt: 'Indoor arcade room with table seating, prize games, basketball, racing, and Guitar Hero machines.',
+  },
+  {
+    src: `${GALLERY_BASE}pirates-cove-water-play.webp`,
+    width: 1360,
+    height: 1020,
+    title: "Pirate's Cove",
+    // alt: "Families playing around Pirate's Cove water features with the yellow umbrella sprayer and pirate ship walls.",
+  },
+  {
+    src: `${GALLERY_BASE}aerial-pirates-cove-splash-zone.webp`,
+    width: 1360,
+    height: 762,
+    title: 'Water Park from Above',
+    // alt: "Aerial view of Pirate's Cove, the winding slide channel, lounge chairs, and blue shade umbrellas.",
+  },
+  {
+    src: `${GALLERY_BASE}captains-plunge-splash-pool.webp`,
+    width: 1360,
+    height: 765,
+    title: 'Bottom of Captain’s Plunge',
+    // alt: "Three-lane turquoise body slides ending in the Captain's Plunge splash pool.",
+  },
+  {
+    src: `${GALLERY_BASE}blackbeards-twist-slide-tower.webp`,
+    width: 765,
+    height: 1020,
+    title: 'Slide Tower',
+    // alt: "Front view of the Blackbeard's Twist slide tower with green, blue, and yellow tubes under cloudy skies.",
+  },
+  {
+    src: `${GALLERY_BASE}hilltop-water-slide-view.webp`,
+    width: 1360,
+    height: 643,
+    title: "Captain's Plunge",
+    // alt: 'Wide view of the hilltop water slides, slide tower, grass slope, and poolside umbrellas.',
+  },
+  {
+    src: `${GALLERY_BASE}tube-slides-closeup.webp`,
+    width: 765,
+    height: 1020,
+    title: 'Twists and Turns',
+    // alt: "Close view from beneath Blackbeard's Twist showing the green, blue, and yellow tube slide curves.",
+  },
+  {
+    src: `${GALLERY_BASE}aerial-blackbeards-twist-slides.webp`,
+    width: 1360,
+    height: 821,
+    title: "Aerial of Blackbeard's Twist",
+    // alt: "Aerial view of Blackbeard's Twist tube slides, wooden tower, and rectangular landing pool.",
+  },
+];
+
 export function Explore() {
   useSEO({
     title: 'Explore the Park | Salty Pirate Water Park — Emerald Isle, NC',
-    description: 'Explore rides and attractions at Salty Pirate Water Park in Emerald Isle, NC. Water slides, pools, kiddie areas, and relaxation zones for the whole family.',
+    description: "Explore Salty Pirate Water Park in Emerald Isle, NC with the interactive park map, ride highlights, and a photo gallery of slides, pools, Pirate's Cove, and the arcade.",
     canonical: '/explore',
   });
   const [activeId, setActiveId] = useState<AttractionId | null>(null);
   const [mapFullscreen, setMapFullscreen] = useState(false);
+  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(null);
   const activeAttraction = attractions.find(a => a.id === activeId) ?? null;
+  const selectedPhoto = selectedPhotoIndex === null ? null : galleryPhotos[selectedPhotoIndex];
 
   useEffect(() => {
     if (!mapFullscreen) return;
@@ -100,8 +215,33 @@ export function Explore() {
     return () => document.removeEventListener('keydown', onKey);
   }, [mapFullscreen]);
 
+  useEffect(() => {
+    if (selectedPhotoIndex === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedPhotoIndex(null);
+      if (e.key === 'ArrowLeft') showPreviousPhoto();
+      if (e.key === 'ArrowRight') showNextPhoto();
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [selectedPhotoIndex]);
+
   function handleHotspotClick(id: AttractionId) {
     setActiveId(prev => (prev === id ? null : id));
+  }
+
+  function showPreviousPhoto() {
+    setSelectedPhotoIndex(current => {
+      if (current === null) return null;
+      return (current - 1 + galleryPhotos.length) % galleryPhotos.length;
+    });
+  }
+
+  function showNextPhoto() {
+    setSelectedPhotoIndex(current => {
+      if (current === null) return null;
+      return (current + 1) % galleryPhotos.length;
+    });
   }
 
   return (
@@ -291,6 +431,69 @@ export function Explore() {
         </div>
       </section>
 
+      <section className="py-14 parchment-bg" style={{ borderTop: '1px solid rgba(120,72,20,0.18)' }}>
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+              <div>
+                {/* <div className="inline-flex items-center gap-2 mb-3" style={{ color: '#8b1a1a', fontFamily: 'var(--font-heading)' }}>
+                  <Camera className="w-4 h-4" aria-hidden="true" />
+                  <span className="uppercase text-xs tracking-widest">Park Photos</span>
+                </div> */}
+                <h2
+                  className="text-3xl md:text-4xl"
+                  style={{ color: '#2a1810', fontFamily: 'var(--font-display)' }}
+                >
+                  Photos of the Salty Pirate
+                </h2>
+              </div>
+              <p className="max-w-md text-sm leading-relaxed" style={{ color: '#6b4a1e' }}>
+                A closer look at the slides, splash areas, sundeck, and arcade your crew can explore between swims.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 auto-rows-[230px] gap-3 md:gap-4">
+              {galleryPhotos.map((photo, index) => (
+                <button
+                  key={photo.src}
+                  onClick={() => setSelectedPhotoIndex(index)}
+                  className={`group relative overflow-hidden text-left cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
+                    photo.feature ? 'sm:col-span-2 lg:row-span-2' : ''
+                  }`}
+                  style={{
+                    border: '3px solid rgba(120,72,20,0.25)',
+                    borderRadius: '3px',
+                    boxShadow: '0 8px 22px rgba(30,12,2,0.14)',
+                    background: '#2a1810',
+                    '--tw-ring-color': '#d4af37',
+                    '--tw-ring-offset-color': PARCHMENT,
+                  } as React.CSSProperties}
+                  aria-label={`View larger photo: ${photo.title}`}
+                >
+                  <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    width={photo.width}
+                    height={photo.height}
+                    loading={index < 2 ? 'eager' : 'lazy'}
+                    decoding="async"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <span
+                    className="absolute inset-x-0 bottom-0 p-3 md:p-4"
+                    style={{ background: 'linear-gradient(180deg, transparent, rgba(26,14,4,0.88))' }}
+                  >
+                    <span className="block text-sm md:text-base font-heading font-bold" style={{ color: '#f8edd6' }}>
+                      {photo.title}
+                    </span>
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Fullscreen map modal */}
       <AnimatePresence>
         {mapFullscreen && (
@@ -329,6 +532,89 @@ export function Explore() {
                 aria-label="Close fullscreen map"
               >
                 <Minimize2 className="w-5 h-5" style={{ color: '#d4af37' }} />
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {selectedPhoto && selectedPhotoIndex !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[110] flex items-center justify-center p-3 md:p-8"
+            style={{ background: 'rgba(10,6,2,0.94)', backdropFilter: 'blur(6px)' }}
+            onClick={() => setSelectedPhotoIndex(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.94, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.94, opacity: 0 }}
+              transition={{ duration: 0.22, ease: 'easeOut' }}
+              className="relative w-full max-w-6xl"
+              onClick={e => e.stopPropagation()}
+            >
+              <img
+                src={selectedPhoto.src}
+                alt={selectedPhoto.alt}
+                width={selectedPhoto.width}
+                height={selectedPhoto.height}
+                className="block w-full max-h-[82vh] object-contain"
+                style={{ borderRadius: '3px', border: '3px solid rgba(212,175,55,0.42)', background: '#120a02' }}
+              />
+
+              <div
+                className="absolute left-0 right-0 bottom-0 p-4 md:p-5"
+                style={{ background: 'linear-gradient(180deg, transparent, rgba(18,10,2,0.92))' }}
+              >
+                <h3 className="font-heading text-base md:text-xl font-bold" style={{ color: '#f8edd6' }}>
+                  {selectedPhoto.title}
+                </h3>
+                <p className="text-xs md:text-sm mt-1 max-w-2xl" style={{ color: 'rgba(240,221,180,0.76)' }}>
+                  {selectedPhoto.alt}
+                </p>
+              </div>
+
+              <button
+                onClick={() => setSelectedPhotoIndex(null)}
+                className="absolute top-3 right-3 flex items-center justify-center w-10 h-10 cursor-pointer"
+                style={{
+                  background: 'rgba(26,14,4,0.85)',
+                  border: '1px solid rgba(212,175,55,0.5)',
+                  borderRadius: '2px',
+                }}
+                aria-label="Close photo gallery"
+              >
+                <X className="w-5 h-5" style={{ color: '#d4af37' }} />
+              </button>
+
+              <button
+                onClick={showPreviousPhoto}
+                className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-10 cursor-pointer"
+                style={{
+                  background: 'rgba(26,14,4,0.85)',
+                  border: '1px solid rgba(212,175,55,0.5)',
+                  borderRadius: '2px',
+                }}
+                aria-label="View previous photo"
+              >
+                <ChevronLeft className="w-5 h-5" style={{ color: '#d4af37' }} />
+              </button>
+
+              <button
+                onClick={showNextPhoto}
+                className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-10 cursor-pointer"
+                style={{
+                  background: 'rgba(26,14,4,0.85)',
+                  border: '1px solid rgba(212,175,55,0.5)',
+                  borderRadius: '2px',
+                }}
+                aria-label="View next photo"
+              >
+                <ChevronRight className="w-5 h-5" style={{ color: '#d4af37' }} />
               </button>
             </motion.div>
           </motion.div>
