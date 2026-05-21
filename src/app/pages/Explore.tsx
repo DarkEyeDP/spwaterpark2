@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSEO } from '../hooks/useSEO';
-import { Droplet, Waves, Users, MapPin, X, Anchor, Maximize2, Minimize2, Camera, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Droplet, Waves, Users, MapPin, X, Anchor, Maximize2, Minimize2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { PageHero } from '../components/PageHero';
 import { TornEdge } from '../components/TornEdge';
 import { motion, AnimatePresence } from 'motion/react';
@@ -95,11 +95,11 @@ const attractions: Attraction[] = [
 
 const galleryPhotos: GalleryPhoto[] = [
   {
-    src: `${GALLERY_BASE}salty-pirate-water-park-sign.webp`,
-    width: 1360,
+    src: `${GALLERY_BASE}tube-slides-closeup.webp`,
+    width: 765,
     height: 1020,
-    title: 'Welcome Aboard',
-    // alt: 'Salty Pirate Water Park entrance sign on a grassy hill in Emerald Isle, North Carolina.',
+    title: 'Twists and Turns',
+    // alt: "Close view from beneath Blackbeard's Twist showing the green, blue, and yellow tube slide curves.",
     feature: true,
   },
   {
@@ -163,7 +163,7 @@ const galleryPhotos: GalleryPhoto[] = [
     src: `${GALLERY_BASE}captains-plunge-splash-pool.webp`,
     width: 1360,
     height: 765,
-    title: 'Bottom of Captain’s Plunge',
+    title: "Bottom of Captain’s Plunge",
     // alt: "Three-lane turquoise body slides ending in the Captain's Plunge splash pool.",
   },
   {
@@ -181,11 +181,11 @@ const galleryPhotos: GalleryPhoto[] = [
     // alt: 'Wide view of the hilltop water slides, slide tower, grass slope, and poolside umbrellas.',
   },
   {
-    src: `${GALLERY_BASE}tube-slides-closeup.webp`,
-    width: 765,
+    src: `${GALLERY_BASE}salty-pirate-water-park-sign.webp`,
+    width: 1360,
     height: 1020,
-    title: 'Twists and Turns',
-    // alt: "Close view from beneath Blackbeard's Twist showing the green, blue, and yellow tube slide curves.",
+    title: 'Welcome Aboard',
+    // alt: 'Salty Pirate Water Park entrance sign on a grassy hill in Emerald Isle, North Carolina.',
   },
   {
     src: `${GALLERY_BASE}aerial-blackbeards-twist-slides.webp`,
@@ -436,10 +436,6 @@ export function Explore() {
           <div className="max-w-6xl mx-auto">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
               <div>
-                {/* <div className="inline-flex items-center gap-2 mb-3" style={{ color: '#8b1a1a', fontFamily: 'var(--font-heading)' }}>
-                  <Camera className="w-4 h-4" aria-hidden="true" />
-                  <span className="uppercase text-xs tracking-widest">Park Photos</span>
-                </div> */}
                 <h2
                   className="text-3xl md:text-4xl"
                   style={{ color: '#2a1810', fontFamily: 'var(--font-display)' }}
@@ -554,33 +550,43 @@ export function Explore() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.94, opacity: 0 }}
               transition={{ duration: 0.22, ease: 'easeOut' }}
-              className="relative w-full max-w-6xl"
+              className="relative w-full max-w-6xl overflow-hidden"
+              style={{ borderRadius: '3px', border: '3px solid rgba(212,175,55,0.42)', background: '#120a02' }}
               onClick={e => e.stopPropagation()}
             >
+              <img
+                src={selectedPhoto.src}
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 w-full h-full object-cover scale-105"
+                style={{ opacity: 0.14, filter: 'saturate(0.85) blur(1px)' }}
+              />
+              <div
+                className="absolute inset-0"
+                style={{ background: 'rgba(10,6,2,0.34)' }}
+                aria-hidden="true"
+              />
+
               <img
                 src={selectedPhoto.src}
                 alt={selectedPhoto.alt}
                 width={selectedPhoto.width}
                 height={selectedPhoto.height}
-                className="block w-full max-h-[82vh] object-contain"
-                style={{ borderRadius: '3px', border: '3px solid rgba(212,175,55,0.42)', background: '#120a02' }}
+                className="relative z-10 block w-full max-h-[82vh] object-contain"
               />
 
               <div
-                className="absolute left-0 right-0 bottom-0 p-4 md:p-5"
+                className="absolute left-0 right-0 bottom-0 z-20 p-4 md:p-5"
                 style={{ background: 'linear-gradient(180deg, transparent, rgba(18,10,2,0.92))' }}
               >
                 <h3 className="font-heading text-base md:text-xl font-bold" style={{ color: '#f8edd6' }}>
                   {selectedPhoto.title}
                 </h3>
-                <p className="text-xs md:text-sm mt-1 max-w-2xl" style={{ color: 'rgba(240,221,180,0.76)' }}>
-                  {selectedPhoto.alt}
-                </p>
               </div>
 
               <button
                 onClick={() => setSelectedPhotoIndex(null)}
-                className="absolute top-3 right-3 flex items-center justify-center w-10 h-10 cursor-pointer"
+                className="absolute top-3 right-3 z-30 flex items-center justify-center w-10 h-10 cursor-pointer"
                 style={{
                   background: 'rgba(26,14,4,0.85)',
                   border: '1px solid rgba(212,175,55,0.5)',
@@ -593,7 +599,7 @@ export function Explore() {
 
               <button
                 onClick={showPreviousPhoto}
-                className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-10 cursor-pointer"
+                className="absolute left-3 top-1/2 z-30 -translate-y-1/2 flex items-center justify-center w-10 h-10 cursor-pointer"
                 style={{
                   background: 'rgba(26,14,4,0.85)',
                   border: '1px solid rgba(212,175,55,0.5)',
@@ -606,7 +612,7 @@ export function Explore() {
 
               <button
                 onClick={showNextPhoto}
-                className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-10 cursor-pointer"
+                className="absolute right-3 top-1/2 z-30 -translate-y-1/2 flex items-center justify-center w-10 h-10 cursor-pointer"
                 style={{
                   background: 'rgba(26,14,4,0.85)',
                   border: '1px solid rgba(212,175,55,0.5)',
