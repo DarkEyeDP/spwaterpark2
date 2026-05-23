@@ -3,7 +3,7 @@ import { useSEO } from '../hooks/useSEO';
 import { Link } from 'react-router';
 import { ArrowRight, Clock, DollarSign, Navigation } from 'lucide-react';
 import { CaptainsForecast } from '../components/CaptainsForecast';
-import { EarlyBirdModal } from '../components/EarlyBirdModal';
+// import { EarlyBirdModal } from '../components/EarlyBirdModal';
 import { TornEdge } from '../components/TornEdge';
 import { WeatherChip } from '../components/WeatherChip';
 import { useHeroWeather } from '../context/HeroWeatherContext';
@@ -62,7 +62,7 @@ export function Home() {
 
   return (
     <div>
-      <EarlyBirdModal />
+      {/* <EarlyBirdModal /> */}
       {/* ── Hero + first torn edge share the same background so the image flows through the transparent tear area ── */}
       <div style={heroBg}>
       {/* ── Hero ── */}
@@ -169,16 +169,19 @@ export function Home() {
                   borderRadius: '1px',
                 }}
               >
-                Opening Soon
+                Open Now!
               </div>
               <h3
                 className="text-2xl"
                 style={{ fontFamily: 'var(--font-heading)', color: '#f0ddb4', letterSpacing: '0.06em' }}
               >
-                Memorial Day Weekend 2026
+                Now–May 31: Sat–Sun 10–6 · Mon 10–5
               </h3>
+              <p className="text-sm mt-1" style={{ color: 'rgba(240,221,180,0.65)', fontFamily: 'var(--font-heading)' }}>
+                June 5+: Open 7 days · Mon 11–5 · Tue–Sun 10–6
+              </p>
               <p className="text-sm mt-2" style={{ color: 'rgba(240,221,180,0.65)', fontFamily: 'var(--font-heading)' }}>
-                Follow us for opening announcements
+                Come on in — the water is fine!
               </p>
             </div>
           </div>
@@ -193,8 +196,8 @@ export function Home() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
-              { icon: Clock, title: 'Park Status', detail: 'Opening Memorial Day', color: '#20b2aa' },
-              { icon: Clock, title: 'Hours', detail: 'Mon 11–5 · Tue–Sun 10–6', color: '#20b2aa' },
+              { icon: Clock, title: 'Park Status', detail: 'Open Now!', color: '#20b2aa' },
+              { icon: Clock, title: 'Hours', detail: 'Jun 5+: 7 days · Mon 11–5 · Tue–Sun 10–6', color: '#20b2aa' },
               { icon: DollarSign, title: 'Pricing', detail: 'From $17 per person', color: '#ee6352' },
               { icon: Navigation, title: 'Directions', detail: 'Emerald Isle, NC', color: '#d4af37' },
             ].map((item, i) => (

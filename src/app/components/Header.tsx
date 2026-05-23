@@ -14,13 +14,16 @@ export function Header() {
   const { heroVisible } = useHeroWeather();
   const showWeatherChip = location.pathname !== '/' || !heroVisible;
 
+  const updatesNewUntil = new Date('2026-05-26T00:00:00');
+  const showUpdatesBadge = new Date() < updatesNewUntil;
+
   const navLinks = [
     { to: '/', label: 'Home' },
     { to: '/plan-your-visit', label: 'Plan Your Visit' },
     { to: '/explore', label: 'Explore' },
     { to: '/pricing', label: 'Pricing' },
     { to: '/nearby', label: 'Nearby Fun' },
-    { to: '/updates', label: 'Updates' },
+    { to: '/updates', label: 'Updates', badge: showUpdatesBadge ? 1 : null },
     { to: '/contact', label: 'Contact' },
   ];
 
@@ -77,6 +80,14 @@ export function Header() {
                 }`}
               >
                 {link.label}
+                {'badge' in link && link.badge && (
+                  <span
+                    className="inline-flex items-center justify-center w-4 h-4 text-white rounded-full"
+                    style={{ fontSize: '0.6rem', background: '#ff1a1a', lineHeight: 1, fontFamily: 'system-ui, sans-serif', fontWeight: 700 }}
+                  >
+                    {link.badge}
+                  </span>
+                )}
                 {hoveredLink === link.to && (
                   <span key={link.to} className="nav-x-marker">
                     <img src={xMarkerImg} alt="" aria-hidden="true" className="w-4 h-auto" />
@@ -180,13 +191,21 @@ export function Header() {
                 key={link.to}
                 to={link.to}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`block px-4 py-3 font-heading text-sm tracking-wide transition-colors ${
+                className={`flex items-center gap-2 px-4 py-3 font-heading text-sm tracking-wide transition-colors ${
                   isActive(link.to)
                     ? 'text-gold-treasure'
                     : 'text-amber-100/85 hover:text-gold-treasure'
                 }`}
               >
                 {link.label}
+                {'badge' in link && link.badge && (
+                  <span
+                    className="inline-flex items-center justify-center w-4 h-4 text-white rounded-full"
+                    style={{ fontSize: '0.6rem', background: '#ff1a1a', lineHeight: 1, fontFamily: 'system-ui, sans-serif', fontWeight: 700 }}
+                  >
+                    {link.badge}
+                  </span>
+                )}
               </Link>
             ))}
           </nav>

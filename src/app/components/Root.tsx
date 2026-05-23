@@ -11,7 +11,7 @@ import type { ParkStatus } from './StatusBanner';
 function getParkStatus(): ParkStatus {
   const now = new Date();
   const year = now.getFullYear();
-  const openingDay = new Date(year, 4, 25); // May 25
+  const openingDay = new Date(year, 4, 23); // May 23
   const closingDay = new Date(year, 8, 8);  // Sept 8 (day after Labor Day weekend)
 
   if (now < openingDay) return 'opening-soon';

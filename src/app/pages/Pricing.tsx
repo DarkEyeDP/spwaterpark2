@@ -375,7 +375,7 @@ export function Pricing() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                   {[
-                    { icon: Users,       color: '#20b2aa', title: 'Children under 3 are free',    body: 'Free with paid adult admission.' },
+                    { icon: Users,       color: '#20b2aa', title: 'Children under 2 are free',    body: 'Free with paid adult admission.' },
                     { icon: WalletCards, color: '#ee6352', title: 'Payment accepted at the park', body: 'We accept cash and all major credit cards.' },
                   ].map(({ icon: Icon, color, title, body }) => (
                     <div key={title} className="p-4" style={{ background: 'rgba(26,14,4,0.05)', border: '1px solid rgba(120,72,20,0.2)', borderRadius: '2px' }}>

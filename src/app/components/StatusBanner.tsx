@@ -53,11 +53,12 @@ const STATUS_CONFIG: Record<ParkStatus, {
     icon: CheckCircle,
     bgColor: 'bg-green-500',
     textColor: 'text-green-50',
-    label: 'Open Today',
+    label: 'Open Now!',
     messages: [
-      'The park is open and ready for adventure!',
-      'Come on in — the water is fine!',
-      'All attractions operating today.',
+      'We are open! Come on in — the water is fine!',
+      'Thru May 31: Sat–Sun 10 AM–6 PM · Mon 10 AM–5 PM',
+      'Starting June 5: Open 7 days a week!',
+      'Jun 5+: Tue–Sun 10 AM–6 PM · Mon 11 AM–5 PM',
     ],
   },
   'closed': {
@@ -126,7 +127,7 @@ export function StatusBanner({ status }: StatusBannerProps) {
         <span className="text-sm font-medium">{config.label}</span>
         <span className="opacity-50 text-sm select-none">·</span>
 
-        <div className="overflow-hidden h-5 flex items-center relative" style={{ minWidth: '16rem' }}>
+        <div className="overflow-hidden h-5 flex items-center relative" style={{ minWidth: '24rem' }}>
           <AnimatePresence mode="popLayout" initial={false}>
             <motion.span
               key={index}

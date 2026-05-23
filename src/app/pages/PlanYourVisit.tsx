@@ -96,13 +96,27 @@ export function PlanYourVisit() {
               <div className="aged-card p-6" style={{ borderRadius: '2px' }}>
                 <h3 className="font-heading text-lg mb-4" style={{ color: '#2a1810' }}>Regular Hours</h3>
                 <div className="space-y-3 text-sm">
+                  <p className="font-heading text-xs uppercase tracking-widest mb-1" style={{ color: '#d4af37' }}>Memorial Day Weekend</p>
                   <div className="flex justify-between items-center" style={{ borderBottom: '1px solid rgba(120,72,20,0.15)', paddingBottom: '0.6rem' }}>
-                    <span style={{ color: '#7a5a3a', fontFamily: 'var(--font-heading)' }}>Monday</span>
-                    <span style={{ color: '#2a1810', fontFamily: 'var(--font-heading)' }}>11:00 AM – 5:00 PM</span>
+                    <span style={{ color: '#7a5a3a', fontFamily: 'var(--font-heading)' }}>May 23–24 (Sat–Sun)</span>
+                    <span style={{ color: '#2a1810', fontFamily: 'var(--font-heading)' }}>10:00 AM – 6:00 PM</span>
                   </div>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center" style={{ borderBottom: '1px solid rgba(120,72,20,0.15)', paddingBottom: '0.6rem' }}>
+                    <span style={{ color: '#7a5a3a', fontFamily: 'var(--font-heading)' }}>May 26 (Monday)</span>
+                    <span style={{ color: '#2a1810', fontFamily: 'var(--font-heading)' }}>10:00 AM – 5:00 PM</span>
+                  </div>
+                  <div className="flex justify-between items-center" style={{ borderBottom: '1px solid rgba(120,72,20,0.15)', paddingBottom: '0.6rem' }}>
+                    <span style={{ color: '#7a5a3a', fontFamily: 'var(--font-heading)' }}>May 30–31 (Fri–Sat)</span>
+                    <span style={{ color: '#2a1810', fontFamily: 'var(--font-heading)' }}>10:00 AM – 6:00 PM</span>
+                  </div>
+                  <p className="font-heading text-xs uppercase tracking-widest mt-3 mb-1" style={{ color: '#d4af37' }}>Starting June 5 — 7 Days a Week</p>
+                  <div className="flex justify-between items-center" style={{ borderBottom: '1px solid rgba(120,72,20,0.15)', paddingBottom: '0.6rem' }}>
                     <span style={{ color: '#7a5a3a', fontFamily: 'var(--font-heading)' }}>Tuesday – Sunday</span>
                     <span style={{ color: '#2a1810', fontFamily: 'var(--font-heading)' }}>10:00 AM – 6:00 PM</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span style={{ color: '#7a5a3a', fontFamily: 'var(--font-heading)' }}>Monday</span>
+                    <span style={{ color: '#2a1810', fontFamily: 'var(--font-heading)' }}>11:00 AM – 5:00 PM</span>
                   </div>
                 </div>
               </div>

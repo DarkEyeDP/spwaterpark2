@@ -185,10 +185,18 @@ export function Footer() {
               Season Info
             </h3>
             <p className="text-sm" style={{ color: 'rgba(245,230,180,0.7)' }}>
-              Open Memorial Day Weekend through Labor Day
+              Open Now!
             </p>
+            <div className="mt-3 space-y-1 text-sm" style={{ color: 'rgba(245,230,180,0.7)' }}>
+              <p className="text-xs uppercase tracking-widest mb-1" style={{ color: 'rgba(212,175,55,0.6)' }}>Thru May 31</p>
+              <p>Sat – Sun: 10 AM – 6 PM</p>
+              <p>Monday: 10 AM – 5 PM</p>
+              <p className="text-xs uppercase tracking-widest mt-2 mb-1" style={{ color: 'rgba(212,175,55,0.6)' }}>Starting June 5</p>
+              <p>Tue – Sun: 10 AM – 6 PM</p>
+              <p>Monday: 11 AM – 5 PM</p>
+            </div>
             <p className="text-xs mt-4" style={{ color: 'rgba(245,230,180,0.45)' }}>
-              Hours and operations subject to weather and staffing.
+              Hours subject to weather and staffing.
             </p>
           </div>
         </div>
