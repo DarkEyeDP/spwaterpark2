@@ -121,13 +121,17 @@ export function StatusBanner({ status }: StatusBannerProps) {
   }, [config.messages.length]);
 
   return (
-    <div className={`${config.bgColor} ${config.textColor} py-2.5 px-4`} style={{ borderBottom: '1px solid rgba(212,175,55,0.3)' }}>
-      <div className="container mx-auto flex items-center justify-center gap-3">
-        <Icon className="w-4 h-4 flex-shrink-0" />
-        <span className="text-sm font-medium">{config.label}</span>
-        <span className="opacity-50 text-sm select-none">·</span>
+    <div className={`${config.bgColor} ${config.textColor} py-2 px-4`} style={{ borderBottom: '1px solid rgba(212,175,55,0.3)' }}>
+      <div className="container mx-auto flex flex-col sm:flex-row items-center justify-center sm:gap-3">
+        {/* Label row */}
+        <div className="flex items-center gap-2">
+          <Icon className="w-4 h-4 flex-shrink-0" />
+          <span className="text-sm font-medium">{config.label}</span>
+          <span className="opacity-50 text-sm select-none">·</span>
+        </div>
 
-        <div className="overflow-hidden h-5 flex items-center relative" style={{ minWidth: '24rem' }}>
+        {/* Rotating message */}
+        <div className="overflow-hidden h-5 flex items-center justify-center relative w-full sm:w-auto" style={{ minWidth: 'min(24rem, 100%)' }}>
           <AnimatePresence mode="popLayout" initial={false}>
             <motion.span
               key={index}
