@@ -196,21 +196,29 @@ export function Home() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
-              { icon: Clock, title: 'Park Status', detail: 'Open Now!', color: '#20b2aa' },
-              { icon: Clock, title: 'Hours', detail: 'Jun 5+: 7 days · Mon 11–5 · Tue–Sun 10–6', color: '#20b2aa' },
-              { icon: DollarSign, title: 'Pricing', detail: 'From $17 per person', color: '#ee6352' },
-              { icon: Navigation, title: 'Directions', detail: 'Emerald Isle, NC', color: '#d4af37' },
-            ].map((item, i) => (
-              <div key={i} className="aged-card p-6 hover:shadow-xl transition-shadow relative overflow-hidden" style={{ borderRadius: '2px' }}>
-                {/* Large background icon */}
-                <item.icon
-                  className="absolute -bottom-3 -right-3 w-24 h-24 pointer-events-none"
-                  style={{ color: item.color, opacity: 0.1 }}
-                />
-                <h3 className="font-heading text-base font-bold mb-1 relative" style={{ color: '#2a1810' }}>{item.title}</h3>
-                <p className="text-sm relative" style={{ color: '#5a4030', fontFamily: 'var(--font-body)' }}>{item.detail}</p>
-              </div>
-            ))}
+              { icon: Clock, title: 'Park Status', detail: 'Open Now!', color: '#20b2aa', href: null },
+              { icon: Clock, title: 'Hours', detail: 'Jun 5+: 7 days · Mon 11–5 · Tue–Sun 10–6', color: '#20b2aa', href: null },
+              { icon: DollarSign, title: 'Pricing', detail: 'From $17 per person', color: '#ee6352', href: '/pricing' },
+              { icon: Navigation, title: 'Directions', detail: 'Emerald Isle, NC', color: '#d4af37', href: 'https://maps.google.com/?q=8915+Reed+Dr,+Emerald+Isle,+NC+28594' },
+            ].map((item, i) => {
+              const cardClass = item.href
+                ? "aged-card p-6 hover:shadow-xl transition-all relative overflow-hidden block cursor-pointer hover:-translate-y-0.5 hover:brightness-105"
+                : "aged-card p-6 transition-shadow relative overflow-hidden block";
+              const cardStyle = { borderRadius: '2px' };
+              const inner = (
+                <>
+                  <item.icon
+                    className="absolute -bottom-3 -right-3 w-24 h-24 pointer-events-none"
+                    style={{ color: item.color, opacity: 0.1 }}
+                  />
+                  <h3 className="font-heading text-base font-bold mb-1 relative" style={{ color: '#2a1810' }}>{item.title}</h3>
+                  <p className="text-sm relative" style={{ color: '#5a4030', fontFamily: 'var(--font-body)' }}>{item.detail}</p>
+                </>
+              );
+              if (!item.href) return <div key={i} className={cardClass} style={cardStyle}>{inner}</div>;
+              if (item.href.startsWith('http')) return <a key={i} href={item.href} target="_blank" rel="noopener noreferrer" className={cardClass} style={cardStyle}>{inner}</a>;
+              return <Link key={i} to={item.href} className={cardClass} style={cardStyle}>{inner}</Link>;
+            })}
           </div>
         </div>
       </section>

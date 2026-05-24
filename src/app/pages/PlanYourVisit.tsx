@@ -1,5 +1,5 @@
 import { useSEO } from '../hooks/useSEO';
-import { Clock, MapPin, Shirt, Droplets, Sun, Users, ChevronDown, Anchor } from 'lucide-react';
+import { MapPin, Shirt, Droplets, Sun, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 import { PageHero } from '../components/PageHero';
 import { TornEdge } from '../components/TornEdge';
@@ -66,6 +66,27 @@ const lodging = [
   },
 ];
 
+function SectionHeading({ title, subtitle }: { title: string; subtitle?: string }) {
+  return (
+    <div className="text-center mb-8">
+      <h2
+        className="text-3xl md:text-4xl mb-3"
+        style={{ color: '#2a1810', fontFamily: 'var(--font-display)' }}
+      >
+        {title}
+      </h2>
+      {subtitle && (
+        <p
+          className="max-w-2xl mx-auto text-sm"
+          style={{ color: '#7a5a3a', fontFamily: 'var(--font-heading)', letterSpacing: '0.03em', lineHeight: '1.8' }}
+        >
+          {subtitle}
+        </p>
+      )}
+    </div>
+  );
+}
+
 export function PlanYourVisit() {
   useSEO({
     title: 'Plan Your Visit | Salty Pirate Water Park — Emerald Isle, NC',
@@ -87,10 +108,7 @@ export function PlanYourVisit() {
       <section className="py-14" style={{ background: PARCHMENT }}>
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="flex items-center gap-3 mb-8">
-              <Clock className="w-7 h-7 flex-shrink-0" style={{ color: '#20b2aa' }} />
-              <h2 className="font-heading text-3xl" style={{ color: '#2a1810' }}>Park Hours</h2>
-            </div>
+            <SectionHeading title="Park Hours" />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div className="aged-card p-6" style={{ borderRadius: '2px' }}>
@@ -148,10 +166,7 @@ export function PlanYourVisit() {
       <section className="py-14" style={{ background: CREAM }}>
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="flex items-center gap-3 mb-8">
-              <MapPin className="w-7 h-7 flex-shrink-0" style={{ color: '#d4af37' }} />
-              <h2 className="font-heading text-3xl" style={{ color: '#2a1810' }}>Location & Directions</h2>
-            </div>
+            <SectionHeading title="Location & Directions" />
 
             <div className="aged-card p-6 md:p-8" style={{ borderRadius: '2px' }}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -202,13 +217,10 @@ export function PlanYourVisit() {
       <section className="py-14" style={{ background: PARCHMENT }}>
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="flex items-center gap-3 mb-3">
-              <Anchor className="w-7 h-7 flex-shrink-0" style={{ color: '#d4af37' }} />
-              <h2 className="font-heading text-3xl" style={{ color: '#2a1810' }}>Drop Anchor Nearby</h2>
-            </div>
-            <p className="mb-8 text-sm max-w-2xl" style={{ color: '#7a5a3a', fontFamily: 'var(--font-heading)', letterSpacing: '0.02em' }}>
-              Making a trip of it? Emerald Isle and the Crystal Coast have plenty of vacation rentals and hotels just minutes from the park.
-            </p>
+            <SectionHeading
+              title="Drop Anchor Nearby"
+              subtitle="Making a trip of it? Emerald Isle and the Crystal Coast have plenty of vacation rentals and hotels just minutes from the park."
+            />
 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {lodging.map(({ name, logo, tagline, href }) => (
@@ -258,12 +270,7 @@ export function PlanYourVisit() {
       <section className="py-14" style={{ background: CREAM }}>
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2
-              className="text-3xl mb-8 text-center"
-              style={{ color: '#2a1810', fontFamily: 'var(--font-display)' }}
-            >
-              What to Bring
-            </h2>
+            <SectionHeading title="What to Bring" />
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {[
@@ -295,10 +302,7 @@ export function PlanYourVisit() {
       <section className="py-14" style={{ background: PARCHMENT }}>
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="flex items-center gap-3 mb-8">
-              <Users className="w-7 h-7 flex-shrink-0" style={{ color: '#d4af37' }} />
-              <h2 className="font-heading text-3xl" style={{ color: '#2a1810' }}>What to Expect</h2>
-            </div>
+            <SectionHeading title="What to Expect" />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div className="aged-card p-6" style={{ borderRadius: '2px' }}>
@@ -346,12 +350,7 @@ export function PlanYourVisit() {
       <section className="py-14" style={{ background: CREAM }}>
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
-            <h2
-              className="text-3xl mb-8 text-center"
-              style={{ color: '#2a1810', fontFamily: 'var(--font-display)' }}
-            >
-              Frequently Asked Questions
-            </h2>
+            <SectionHeading title="Frequently Asked Questions" />
 
             <div className="space-y-3">
               {faqs.map((faq, index) => (

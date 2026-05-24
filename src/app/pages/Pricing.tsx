@@ -264,10 +264,8 @@ export function Pricing() {
         </div>
       </section>
 
-      <TornEdge fill={PARCHMENT} fromColor={PARCHMENT} />
-
       {/* ── Special Deals ── */}
-      <section className="py-14 px-4" style={{ background: PARCHMENT }}>
+      <section className="pt-6 pb-14 px-4" style={{ background: PARCHMENT }}>
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl mb-3" style={{ fontFamily: 'var(--font-display)', color: '#2a1810' }}>
