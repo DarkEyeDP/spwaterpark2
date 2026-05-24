@@ -109,7 +109,6 @@ const STATUS_CONFIG: Record<ParkStatus, {
 
 export function StatusBanner({ status }: StatusBannerProps) {
   const config = STATUS_CONFIG[status];
-  const Icon = config.icon;
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -122,24 +121,20 @@ export function StatusBanner({ status }: StatusBannerProps) {
 
   return (
     <div className={`${config.bgColor} ${config.textColor} py-2 px-4`} style={{ borderBottom: '1px solid rgba(212,175,55,0.3)' }}>
-      <div className="container mx-auto flex flex-col sm:flex-row items-center justify-center sm:gap-3">
-        {/* Label row */}
-        <div className="flex items-center gap-2">
-          <Icon className="w-4 h-4 flex-shrink-0" />
-          <span className="text-sm font-medium">{config.label}</span>
-          <span className="opacity-50 text-sm select-none">·</span>
-        </div>
-
-        {/* Rotating message */}
-        <div className="overflow-hidden h-5 flex items-center justify-center relative w-full sm:w-auto" style={{ minWidth: 'min(24rem, 100%)' }}>
-          <AnimatePresence mode="popLayout" initial={false}>
+      <div className="overflow-hidden">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-x-2 gap-y-0.5">
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <span className="text-sm font-medium">{config.label}</span>
+            <span className="opacity-50 text-sm select-none">·</span>
+          </div>
+          <AnimatePresence mode="wait" initial={false}>
             <motion.span
               key={index}
-              className="text-sm opacity-90 whitespace-nowrap absolute"
-              initial={{ y: '120%', opacity: 0 }}
+              className="text-sm opacity-90 whitespace-nowrap"
+              initial={{ y: '100%', opacity: 0 }}
               animate={{ y: '0%',   opacity: 1 }}
-              exit={{    y: '-120%', opacity: 0 }}
-              transition={{ duration: 0.4, ease: 'easeInOut' }}
+              exit={{    y: '-100%', opacity: 0 }}
+              transition={{ duration: 0.35, ease: 'easeInOut' }}
             >
               {config.messages[index]}
             </motion.span>
