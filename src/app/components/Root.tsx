@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router';
 import { Header } from './Header';
 import { Footer } from './Footer';
@@ -6,21 +7,28 @@ import { ScrollToTop } from './ScrollToTop';
 import { Compass } from './Compass';
 import { AnalyticsPageTracker } from './AnalyticsPageTracker';
 import { HeroWeatherProvider } from '../context/HeroWeatherContext';
+import { getOpenStatus } from '../utils/parkHours';
 import type { ParkStatus } from './StatusBanner';
 
-function getParkStatus(): ParkStatus {
-  const now = new Date();
-  const year = now.getFullYear();
-  const openingDay = new Date(year, 4, 23); // May 23
-  const closingDay = new Date(year, 8, 8);  // Sept 8 (day after Labor Day weekend)
+function computeParkStatus(): ParkStatus {
+  const s = getOpenStatus();
+  if (s.type === 'pre-season')  return 'opening-soon';
+  if (s.type === 'post-season') return 'season-closed';
+  if (s.type === 'open')        return 'open';
+  return 'in-season-closed';
+}
 
-  if (now < openingDay) return 'opening-soon';
-  if (now >= closingDay) return 'season-closed';
-  return 'open';
+function useLiveParkStatus(): ParkStatus {
+  const [status, setStatus] = useState(computeParkStatus);
+  useEffect(() => {
+    const id = setInterval(() => setStatus(computeParkStatus()), 60_000);
+    return () => clearInterval(id);
+  }, []);
+  return status;
 }
 
 export function Root() {
-  const status = getParkStatus();
+  const status = useLiveParkStatus();
 
   return (
     <HeroWeatherProvider>

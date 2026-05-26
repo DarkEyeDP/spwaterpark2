@@ -15,32 +15,32 @@ const STATUS_CONFIG: Record<
   perfect: {
     Icon: Sun,
     iconColor: '#d4af37',
-    label: 'Perfect Day to Visit',
-    message: 'Ideal conditions for water park fun. Grab your crew and go.',
+    label: 'Clear Skies — Full Sails',
+    message: 'Ideal conditions today. Grab yer crew and set sail for the park.',
     border: 'rgba(212,175,55,0.4)',
     accent: '#c1860a',
   },
   good: {
     Icon: Cloud,
     iconColor: '#20b2aa',
-    label: 'Still Worth It',
-    message: 'Good conditions with some clouds. Should be a solid day out.',
+    label: 'Still Worth the Voyage',
+    message: "A few clouds on the horizon, but nothin' that'll stop a good pirate. Worth the voyage.",
     border: 'rgba(32,178,170,0.4)',
     accent: '#20b2aa',
   },
   caution: {
     Icon: CloudRain,
     iconColor: '#8b6914',
-    label: 'Weather May Impact Experience',
-    message: 'Check live park status before heading out. Conditions are iffy.',
+    label: 'Rough Seas Ahead',
+    message: "Conditions be a bit iffy today. Check live park status before ye set sail.",
     border: 'rgba(139,105,20,0.4)',
     accent: '#8b6914',
   },
   'check-back': {
     Icon: AlertTriangle,
     iconColor: '#ee6352',
-    label: 'Check Back Before Heading Out',
-    message: 'Weather conditions may affect park operations today.',
+    label: 'Batten Down the Hatches',
+    message: "The skies be angry today. Check our Facebook page or the live status before ye weigh anchor.",
     border: 'rgba(238,99,82,0.5)',
     accent: '#ee6352',
   },
@@ -146,8 +146,8 @@ export function CaptainsForecast() {
         </div>
       )}
 
-      {/* Icon + label row — stacks on mobile, side-by-side on sm+ */}
-      <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
+      {/* Icon + label row */}
+      <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4 mb-4">
         <div
           className="p-3 flex-shrink-0 self-start"
           style={{
@@ -164,7 +164,7 @@ export function CaptainsForecast() {
             className="text-xs tracking-widest uppercase mb-1"
             style={{ color: '#8a6a4a', fontFamily: 'var(--font-heading)' }}
           >
-            Captain's Forecast:
+            Deckhand Paul's Forecast:
           </p>
           <h3
             className="text-xl mb-1"
@@ -172,58 +172,58 @@ export function CaptainsForecast() {
           >
             {config.label}
           </h3>
-          <p className="text-sm mb-4" style={{ color: '#5a4030', fontFamily: 'var(--font-body)' }}>
+          <p className="text-sm" style={{ color: '#5a4030', fontFamily: 'var(--font-body)' }}>
             {config.message}
           </p>
-
-          {/* Stats row */}
-          <div className="grid grid-cols-3 gap-2 sm:gap-3">
-            {[
-              { label: 'Temp', value: `${data.temperature}°F` },
-              { label: 'Rain', value: `${data.rainChance}%` },
-              { label: 'Wind', value: data.windSpeed },
-            ].map((stat) => (
-              <div
-                key={stat.label}
-                className="text-center py-3 px-1"
-                style={{
-                  background: 'rgba(255,255,255,0.55)',
-                  border: '1px solid rgba(120,72,20,0.18)',
-                  borderRadius: '2px',
-                }}
-              >
-                <div
-                  className="text-xs uppercase tracking-wide mb-1 whitespace-nowrap"
-                  style={{ color: '#8a6a4a', fontFamily: 'var(--font-heading)' }}
-                >
-                  {stat.label}
-                </div>
-                <div
-                  className="text-xl"
-                  style={{ color: config.accent, fontFamily: 'var(--font-display)' }}
-                >
-                  {stat.value}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Forecast text + meta */}
-          <div className="mt-3 flex items-center justify-between flex-wrap gap-2">
-            <p className="text-xs italic" style={{ color: '#8a6a4a', fontFamily: 'var(--font-body)' }}>
-              {data.shortForecast} — Emerald Isle, NC
-            </p>
-            <button
-              onClick={refresh}
-              className="inline-flex items-center gap-1 text-xs transition-all hover:opacity-70"
-              style={{ color: '#8a6a4a', fontFamily: 'var(--font-heading)' }}
-              title="Refresh weather"
-            >
-              <RefreshCw className="w-3 h-3" />
-              Updated {timeStr}
-            </button>
-          </div>
         </div>
+      </div>
+
+      {/* Stats row — full width, aligned with left edge of icon */}
+      <div className="grid grid-cols-3 gap-2 sm:gap-3">
+        {[
+          { label: 'Temp', value: `${data.temperature}°F` },
+          { label: 'Rain', value: `${data.rainChance}%` },
+          { label: 'Wind', value: data.windSpeed },
+        ].map((stat) => (
+          <div
+            key={stat.label}
+            className="text-center py-3 px-1"
+            style={{
+              background: 'rgba(255,255,255,0.55)',
+              border: '1px solid rgba(120,72,20,0.18)',
+              borderRadius: '2px',
+            }}
+          >
+            <div
+              className="text-xs uppercase tracking-wide mb-1 whitespace-nowrap"
+              style={{ color: '#8a6a4a', fontFamily: 'var(--font-heading)' }}
+            >
+              {stat.label}
+            </div>
+            <div
+              className="text-xl"
+              style={{ color: config.accent, fontFamily: 'var(--font-display)' }}
+            >
+              {stat.value}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Forecast text + meta */}
+      <div className="mt-3 flex items-center justify-between flex-wrap gap-2">
+        <p className="text-xs italic" style={{ color: '#8a6a4a', fontFamily: 'var(--font-body)' }}>
+          {data.shortForecast} — Emerald Isle, NC
+        </p>
+        <button
+          onClick={refresh}
+          className="inline-flex items-center gap-1 text-xs transition-all hover:opacity-70"
+          style={{ color: '#8a6a4a', fontFamily: 'var(--font-heading)' }}
+          title="Refresh weather"
+        >
+          <RefreshCw className="w-3 h-3" />
+          Updated {timeStr}
+        </button>
       </div>
     </div>
   );

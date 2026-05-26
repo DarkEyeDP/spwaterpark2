@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 import { Facebook, Instagram, MapPin, Phone, Mail } from 'lucide-react';
-import logoImg from '@/assets/logo.png';
+import { ParkStatusPill } from './ParkStatusBadge';
 
 const primaryLinks = [
   { to: '/', label: 'Home' },
@@ -34,54 +34,51 @@ export function Footer() {
         style={{ background: 'linear-gradient(90deg, transparent, #d4af37 20%, #d4af37 80%, transparent)' }}
       />
 
-      <div className="container mx-auto px-4 py-8 md:py-12">
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-6 md:gap-8">
-          <div className="col-span-2 lg:col-span-1">
-            <div className="flex flex-col items-center text-center">
-              <img src={logoImg} alt="Salty Pirate Water Park" className="h-24 md:h-28 w-auto mb-5 opacity-90" />
-            </div>
-            <div className="space-y-3 max-w-sm mx-auto">
+      <div className="container mx-auto px-4 py-10 md:py-14">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
+
+          {/* ── Contact ── */}
+          <div>
+            <h3 className="font-heading text-sm tracking-widest uppercase mb-4" style={{ color: '#d4af37' }}>
+              Contact
+            </h3>
+            <div className="space-y-3">
               <a
                 href="https://maps.google.com/?q=8915+Reed+Dr,+Emerald+Isle,+NC+28594"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-start justify-start gap-3 text-base transition-colors hover:text-amber-200"
+                className="flex items-start gap-2.5 text-sm transition-colors hover:text-amber-200"
                 style={{ color: 'rgba(245,230,180,0.7)' }}
               >
-                <MapPin className="w-5 h-5 mt-1 flex-shrink-0" style={{ color: '#d4af37' }} />
-                <span className="footer-link text-left leading-snug" style={{ fontSize: 'clamp(1rem, 3.4vw, 1.15rem)' }}>
-                  8915 Reed Dr<br />
-                  Emerald Isle, NC 28594
-                </span>
+                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: '#d4af37' }} />
+                <span className="footer-link leading-snug">8915 Reed Dr<br />Emerald Isle, NC 28594</span>
               </a>
               <a
                 href="tel:+12523542609"
-                className="flex items-center justify-start gap-3 text-base transition-colors hover:text-amber-200"
+                className="flex items-center gap-2.5 text-sm transition-colors hover:text-amber-200"
                 style={{ color: 'rgba(245,230,180,0.7)' }}
               >
-                <Phone className="w-5 h-5 flex-shrink-0" style={{ color: '#d4af37' }} />
-                <span className="footer-link whitespace-nowrap" style={{ fontSize: 'clamp(1rem, 3.4vw, 1.15rem)' }}>(252) 354-2609</span>
+                <Phone className="w-4 h-4 flex-shrink-0" style={{ color: '#d4af37' }} />
+                <span className="footer-link">(252) 354-2609</span>
               </a>
               <a
                 href="mailto:saltypiratewaterpark@gmail.com"
-                className="flex items-center justify-start gap-3 text-base transition-colors hover:text-amber-200"
+                className="flex items-center gap-2.5 text-sm transition-colors hover:text-amber-200"
                 style={{ color: 'rgba(245,230,180,0.7)' }}
               >
-                <Mail className="w-5 h-5 flex-shrink-0" style={{ color: '#d4af37' }} />
-                <span className="footer-link whitespace-nowrap" style={{ fontSize: 'clamp(0.8rem, 2.9vw, 1rem)' }}>saltypiratewaterpark@gmail.com</span>
+                <Mail className="w-4 h-4 flex-shrink-0" style={{ color: '#d4af37' }} />
+                <span className="footer-link" style={{ wordBreak: 'break-all' }}>saltypiratewaterpark@gmail.com</span>
               </a>
             </div>
           </div>
 
+          {/* ── Navigate ── */}
           <div>
-            <h3
-              className="font-heading text-sm tracking-widest uppercase mb-4"
-              style={{ color: '#d4af37' }}
-            >
-              Park Pages
+            <h3 className="font-heading text-sm tracking-widest uppercase mb-4" style={{ color: '#d4af37' }}>
+              Navigate
             </h3>
             <ul className="space-y-2 text-sm">
-              {primaryLinks.map((l) => (
+              {[...primaryLinks, ...secondaryLinks].map((l) => (
                 <li key={l.to}>
                   <Link
                     to={l.to}
@@ -95,37 +92,12 @@ export function Footer() {
             </ul>
           </div>
 
+          {/* ── Connect ── */}
           <div>
-            <h3
-              className="font-heading text-sm tracking-widest uppercase mb-4 text-center"
-              style={{ color: '#d4af37', visibility: 'hidden' }}
-              aria-hidden="true"
-            >
-              Park Pages
-            </h3>
-            <ul className="space-y-2 text-sm">
-              {secondaryLinks.map((l) => (
-                <li key={l.to}>
-                  <Link
-                    to={l.to}
-                    className="footer-link transition-colors hover:text-amber-200"
-                    style={{ color: 'rgba(245,230,180,0.7)' }}
-                  >
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3
-              className="font-heading text-sm tracking-widest uppercase mb-4"
-              style={{ color: '#d4af37' }}
-            >
+            <h3 className="font-heading text-sm tracking-widest uppercase mb-4" style={{ color: '#d4af37' }}>
               Connect
             </h3>
-            <div className="flex gap-3">
+            <div className="flex gap-3 mb-5">
               <a
                 href="https://facebook.com"
                 target="_blank"
@@ -157,48 +129,45 @@ export function Footer() {
                 <Instagram className="w-4 h-4" />
               </a>
             </div>
-            <div className="mt-4">
-              <h4 className="font-heading text-xs tracking-widest uppercase mb-2" style={{ color: 'rgba(212,175,55,0.75)' }}>
-                Legal
-              </h4>
-              <ul className="space-y-2 text-sm">
-                {legalLinks.map((l) => (
-                  <li key={l.to}>
-                    <Link
-                      to={l.to}
-                      className="footer-link transition-colors hover:text-amber-200"
-                      style={{ color: 'rgba(245,230,180,0.7)' }}
-                    >
-                      {l.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <h4 className="font-heading text-sm tracking-widest uppercase mb-2" style={{ color: '#d4af37' }}>
+              Legal
+            </h4>
+            <ul className="space-y-2 text-sm">
+              {legalLinks.map((l) => (
+                <li key={l.to}>
+                  <Link
+                    to={l.to}
+                    className="footer-link transition-colors hover:text-amber-200"
+                    style={{ color: 'rgba(245,230,180,0.7)' }}
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
+          {/* ── Season Info ── */}
           <div>
-            <h3
-              className="font-heading text-sm tracking-widest uppercase mb-4"
-              style={{ color: '#d4af37' }}
-            >
+            <h3 className="font-heading text-sm tracking-widest uppercase mb-4" style={{ color: '#d4af37' }}>
               Season Info
             </h3>
-            <p className="text-sm" style={{ color: 'rgba(245,230,180,0.7)' }}>
-              Open Now!
+            <p className="text-sm mb-3">
+              <ParkStatusPill />
             </p>
-            <div className="mt-3 space-y-1 text-sm" style={{ color: 'rgba(245,230,180,0.7)' }}>
+            <div className="space-y-1 text-sm" style={{ color: 'rgba(245,230,180,0.7)' }}>
               <p className="text-xs uppercase tracking-widest mb-1" style={{ color: 'rgba(212,175,55,0.6)' }}>Thru May 31</p>
               <p>Sat – Sun: 10 AM – 6 PM</p>
               <p>Monday: 10 AM – 5 PM</p>
-              <p className="text-xs uppercase tracking-widest mt-2 mb-1" style={{ color: 'rgba(212,175,55,0.6)' }}>Starting June 5</p>
+              <p className="text-xs uppercase tracking-widest mt-3 mb-1" style={{ color: 'rgba(212,175,55,0.6)' }}>Starting June 5</p>
               <p>Tue – Sun: 10 AM – 6 PM</p>
               <p>Monday: 11 AM – 5 PM</p>
             </div>
-            <p className="text-xs mt-4" style={{ color: 'rgba(245,230,180,0.45)' }}>
+            <p className="text-xs mt-4" style={{ color: 'rgba(245,230,180,0.4)' }}>
               Hours subject to weather and staffing.
             </p>
           </div>
+
         </div>
 
         <div
@@ -208,18 +177,18 @@ export function Footer() {
             color: 'rgba(245,230,180,0.45)',
           }}
         >
-          <p style={{ fontFamily: 'var(--font-display)', color: 'rgba(212,175,55,0.6)', fontSize: '1rem' }}>
+          <p style={{ fontFamily: 'var(--font-display)', color: '#d4af37', fontSize: '1rem' }}>
             Set sail for summer fun. See you on the coast.
           </p>
-          <p className="mt-4 text-xs max-w-2xl mx-auto leading-relaxed" style={{ color: 'rgba(245,230,180,0.3)' }}>
+          <p className="mt-4 text-xs max-w-2xl mx-auto leading-relaxed" style={{ color: 'rgba(245,230,180,0.4)' }}>
             Salty Pirate Water Park is not responsible for personal injury, loss, or damage to property sustained while on the premises. Guests participate in all activities at their own risk. By entering the park, guests acknowledge and accept these terms.
           </p>
           <p className="mt-3 text-xs">
-            <Link to="/site-map" className="footer-link hover:text-amber-200" style={{ color: 'rgba(212,175,55,0.7)' }}>
+            <Link to="/site-map" className="footer-link hover:text-amber-200" style={{ color: '#d4af37' }}>
               Browse Site Map
             </Link>
             {' · '}
-            <Link to="/privacy-policy" className="footer-link hover:text-amber-200" style={{ color: 'rgba(212,175,55,0.7)' }}>
+            <Link to="/privacy-policy" className="footer-link hover:text-amber-200" style={{ color: '#d4af37' }}>
               Privacy Policy
             </Link>
           </p>

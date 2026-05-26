@@ -6,6 +6,7 @@ import { CaptainsForecast } from '../components/CaptainsForecast';
 // import { EarlyBirdModal } from '../components/EarlyBirdModal';
 import { TornEdge } from '../components/TornEdge';
 import { WeatherChip } from '../components/WeatherChip';
+import { HeroStatusCard, ParkStatusPill } from '../components/ParkStatusBadge';
 import { useHeroWeather } from '../context/HeroWeatherContext';
 import logoImg from '@/assets/logo.png';
 import pirateShipImg from '@/assets/pirate-ship.svg';
@@ -20,6 +21,21 @@ const PARCHMENT = '#f0ddb4';
 const CREAM = '#f8edd6';
 const heroAvif = `${import.meta.env.BASE_URL}beach-background.avif`;
 const heroJpeg = `${import.meta.env.BASE_URL}beach-background-optimized.jpg`;
+
+function QuickStatusCard() {
+  return (
+    <div className="aged-card p-6 transition-shadow relative overflow-hidden block" style={{ borderRadius: '2px' }}>
+      <Clock
+        className="absolute -bottom-3 -right-3 w-24 h-24 pointer-events-none"
+        style={{ color: '#20b2aa', opacity: 0.1 }}
+      />
+      <h3 className="font-heading text-base font-bold mb-1 relative" style={{ color: '#2a1810' }}>Park Status</h3>
+      <p className="text-sm relative">
+        <ParkStatusPill variant="light" />
+      </p>
+    </div>
+  );
+}
 
 export function Home() {
   useSEO({
@@ -151,39 +167,7 @@ export function Home() {
               <WeatherChip />
             </div>
 
-            {/* Opening soon badge */}
-            <div
-              className="mt-5 inline-block mx-auto px-8 py-5 text-center"
-              style={{
-                background: 'rgba(26,14,4,0.72)',
-                border: '1px solid rgba(212,175,55,0.45)',
-                borderRadius: '2px',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.3), inset 0 0 30px rgba(212,175,55,0.05)',
-              }}
-            >
-              <div
-                className="inline-block px-4 py-1.5 mb-3 text-xs font-heading tracking-widest uppercase"
-                style={{
-                  background: 'linear-gradient(135deg, #c1860a, #d4af37)',
-                  color: DARK_WOOD,
-                  borderRadius: '1px',
-                }}
-              >
-                Open Now!
-              </div>
-              <h3
-                className="text-2xl"
-                style={{ fontFamily: 'var(--font-heading)', color: '#f0ddb4', letterSpacing: '0.06em' }}
-              >
-                Now–May 31: Sat–Sun 10–6 · Mon 10–5
-              </h3>
-              <p className="text-sm mt-1" style={{ color: 'rgba(240,221,180,0.65)', fontFamily: 'var(--font-heading)' }}>
-                June 5+: Open 7 days · Mon 11–5 · Tue–Sun 10–6
-              </p>
-              <p className="text-sm mt-2" style={{ color: 'rgba(240,221,180,0.65)', fontFamily: 'var(--font-heading)' }}>
-                Come on in — the water is fine!
-              </p>
-            </div>
+            <HeroStatusCard />
           </div>
         </div>
       </section>
@@ -195,8 +179,8 @@ export function Home() {
       <section className="py-14" style={{ background: PARCHMENT }}>
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <QuickStatusCard />
             {[
-              { icon: Clock, title: 'Park Status', detail: 'Open Now!', color: '#20b2aa', href: null },
               { icon: Clock, title: 'Hours', detail: 'Jun 5+: 7 days · Mon 11–5 · Tue–Sun 10–6', color: '#20b2aa', href: null },
               { icon: DollarSign, title: 'Pricing', detail: 'From $17 per person', color: '#ee6352', href: '/pricing' },
               { icon: Navigation, title: 'Directions', detail: 'Emerald Isle, NC', color: '#d4af37', href: 'https://maps.google.com/?q=8915+Reed+Dr,+Emerald+Isle,+NC+28594' },
@@ -237,7 +221,7 @@ export function Home() {
                 Should I Go Today?
               </h2>
               <p style={{ color: '#7a5a3a', fontFamily: 'var(--font-heading)', fontSize: '0.95rem', letterSpacing: '0.03em' }}>
-                Before you pack the towels, check today's forecast and park status.
+                Before you pack the towels, check Deckhand Paul's forecast and park status.
               </p>
             </div>
             <CaptainsForecast />

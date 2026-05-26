@@ -45,12 +45,12 @@ export function Header() {
       />
 
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-20 relative">
           {/* Logo + Est. badge */}
           <div className="flex items-center gap-3">
             <div
               className="hidden lg:flex flex-col items-center leading-none select-none"
-              style={{ opacity: 0.7 }}
+              style={{ opacity: 1 }}
             >
               <span style={{ fontFamily: 'var(--font-heading)', fontSize: '0.55rem', letterSpacing: '0.18em', color: '#d4af37', textTransform: 'uppercase' }}>Est.</span>
               <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.05rem', color: '#d4af37', lineHeight: 1 }}>1977</span>
@@ -63,6 +63,15 @@ export function Header() {
                 className="h-14 w-auto drop-shadow-lg group-hover:scale-105 transition-transform"
               />
             </Link>
+          </div>
+
+          {/* Est. 1977 — centered on mobile only */}
+          <div
+            className="lg:hidden absolute left-1/2 -translate-x-1/2 flex flex-col items-center leading-none select-none pointer-events-none"
+          >
+            <span style={{ fontFamily: 'var(--font-heading)', fontSize: '0.55rem', letterSpacing: '0.18em', color: '#d4af37', textTransform: 'uppercase' }}>Est.</span>
+            <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.05rem', color: '#d4af37', lineHeight: 1 }}>1977</span>
+            <div className="w-8 h-px mt-0.5" style={{ background: 'linear-gradient(90deg, transparent, #d4af37, transparent)' }} />
           </div>
 
           {/* Desktop nav */}

@@ -1,8 +1,9 @@
 import { useState, useEffect, type ReactNode } from 'react';
 import { AlertCircle, CheckCircle, Clock, CloudRain } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
+import { InSeasonCountdownLabel } from './ParkStatusBadge';
 
-export type ParkStatus = 'open' | 'closed' | 'weather-delay' | 'opening-soon' | 'season-closed';
+export type ParkStatus = 'open' | 'closed' | 'weather-delay' | 'opening-soon' | 'season-closed' | 'in-season-closed';
 
 interface StatusBannerProps {
   status: ParkStatus;
@@ -56,6 +57,18 @@ const STATUS_CONFIG: Record<ParkStatus, {
     label: 'Open Now!',
     messages: [
       'We are open! Come on in — the water is fine!',
+      'Thru May 31: Sat–Sun 10 AM–6 PM · Mon 10 AM–5 PM',
+      'Starting June 5: Open 7 days a week!',
+      'Jun 5+: Tue–Sun 10 AM–6 PM · Mon 11 AM–5 PM',
+    ],
+  },
+  'in-season-closed': {
+    icon: Clock,
+    bgColor: 'bg-teal-700',
+    textColor: 'text-teal-50',
+    label: 'Open for the Season',
+    messages: [
+      <InSeasonCountdownLabel key="countdown" />,
       'Thru May 31: Sat–Sun 10 AM–6 PM · Mon 10 AM–5 PM',
       'Starting June 5: Open 7 days a week!',
       'Jun 5+: Tue–Sun 10 AM–6 PM · Mon 11 AM–5 PM',

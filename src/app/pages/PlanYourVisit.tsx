@@ -3,6 +3,7 @@ import { MapPin, Shirt, Droplets, Sun, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 import { PageHero } from '../components/PageHero';
 import { TornEdge } from '../components/TornEdge';
+import { HeroStatusCard } from '../components/ParkStatusBadge';
 import airbnbLogo from '@/assets/airbnb-logo.png';
 import bookingLogo from '@/assets/booking-logo.png';
 import hotelsLogo from '@/assets/hotels-logo-2.png';
@@ -110,19 +111,16 @@ export function PlanYourVisit() {
           <div className="max-w-4xl mx-auto">
             <SectionHeading title="Park Hours" />
 
+            {/* Live status card */}
+            <div className="flex justify-center mb-8">
+              <HeroStatusCard />
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div className="aged-card p-6" style={{ borderRadius: '2px' }}>
                 <h3 className="font-heading text-lg mb-4" style={{ color: '#2a1810' }}>Regular Hours</h3>
                 <div className="space-y-3 text-sm">
-                  <p className="font-heading text-xs uppercase tracking-widest mb-1" style={{ color: '#d4af37' }}>Memorial Day Weekend</p>
-                  <div className="flex justify-between items-center" style={{ borderBottom: '1px solid rgba(120,72,20,0.15)', paddingBottom: '0.6rem' }}>
-                    <span style={{ color: '#7a5a3a', fontFamily: 'var(--font-heading)' }}>May 23–24 (Sat–Sun)</span>
-                    <span style={{ color: '#2a1810', fontFamily: 'var(--font-heading)' }}>10:00 AM – 6:00 PM</span>
-                  </div>
-                  <div className="flex justify-between items-center" style={{ borderBottom: '1px solid rgba(120,72,20,0.15)', paddingBottom: '0.6rem' }}>
-                    <span style={{ color: '#7a5a3a', fontFamily: 'var(--font-heading)' }}>May 26 (Monday)</span>
-                    <span style={{ color: '#2a1810', fontFamily: 'var(--font-heading)' }}>10:00 AM – 5:00 PM</span>
-                  </div>
+                  <p className="font-heading text-xs uppercase tracking-widest mb-1" style={{ color: '#d4af37' }}>This Weekend</p>
                   <div className="flex justify-between items-center" style={{ borderBottom: '1px solid rgba(120,72,20,0.15)', paddingBottom: '0.6rem' }}>
                     <span style={{ color: '#7a5a3a', fontFamily: 'var(--font-heading)' }}>May 30–31 (Sat–Sun)</span>
                     <span style={{ color: '#2a1810', fontFamily: 'var(--font-heading)' }}>10:00 AM – 6:00 PM</span>
