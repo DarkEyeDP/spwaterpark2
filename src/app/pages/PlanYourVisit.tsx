@@ -124,7 +124,7 @@ export function PlanYourVisit() {
                     <span style={{ color: '#2a1810', fontFamily: 'var(--font-heading)' }}>10:00 AM – 5:00 PM</span>
                   </div>
                   <div className="flex justify-between items-center" style={{ borderBottom: '1px solid rgba(120,72,20,0.15)', paddingBottom: '0.6rem' }}>
-                    <span style={{ color: '#7a5a3a', fontFamily: 'var(--font-heading)' }}>May 30–31 (Fri–Sat)</span>
+                    <span style={{ color: '#7a5a3a', fontFamily: 'var(--font-heading)' }}>May 30–31 (Sat–Sun)</span>
                     <span style={{ color: '#2a1810', fontFamily: 'var(--font-heading)' }}>10:00 AM – 6:00 PM</span>
                   </div>
                   <p className="font-heading text-xs uppercase tracking-widest mt-3 mb-1" style={{ color: '#d4af37' }}>Starting June 5 — 7 Days a Week</p>
