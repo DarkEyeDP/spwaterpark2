@@ -423,8 +423,8 @@ export function Home() {
 
       <TornEdge fill={DARK_WOOD} fromColor={PARCHMENT} />
 
-      {/* ── Ship Store ── */}
-      <section
+      {/* ── Ship Store ── (hidden until store is live) */}
+      {false && <section
         className="py-10 md:py-12"
         style={{
           background: DARK_WOOD,
@@ -485,7 +485,7 @@ export function Home() {
             </a>
           </div>
         </div>
-      </section>
+      </section>}
     </div>
   );
 }
