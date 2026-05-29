@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from 'motion/react';
 import logoImg from '@/assets/logo.png';
 import xMarkerImg from '@/assets/x-marker.svg';
 import { WeatherChip } from './WeatherChip';
-import { useHeroWeather } from '../context/HeroWeatherContext';
 
 const PIRATE_QUOTES = [
   // Salty Pirate crew
@@ -133,8 +132,7 @@ export function Header() {
     }
   }, [mobileMenuOpen]);
   const location = useLocation();
-  const { heroVisible } = useHeroWeather();
-  const showWeatherChip = location.pathname !== '/' || !heroVisible;
+  const showWeatherChip = true;
 
   const updatesNewUntil = new Date('2026-05-26T00:00:00');
   const showUpdatesBadge = new Date() < updatesNewUntil;
@@ -229,7 +227,7 @@ export function Header() {
           </nav>
 
           {/* Right side — weather chip + CTA/hamburger */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-start gap-2">
             {/* Weather chip — slides in when hero chip scrolls out */}
             <div
               className="transition-opacity duration-300"
