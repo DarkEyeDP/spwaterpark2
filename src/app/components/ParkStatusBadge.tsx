@@ -61,7 +61,7 @@ export function ParkStatusPill({ variant = 'dark' }: { variant?: 'dark' | 'light
     return (
       <span style={{ color: closedColor, fontFamily: 'var(--font-body)' }}>
         Opens in {days > 0 ? `${days}d ` : ''}{pad(hours)}h
-        <span style={{ opacity: dimOpacity }}> · Next: {day}</span>
+        <span style={{ opacity: dimOpacity }}> · Open {day}</span>
       </span>
     );
   }
@@ -150,7 +150,7 @@ export function HeroStatusCard() {
           className="text-2xl"
           style={{ fontFamily: 'var(--font-heading)', color: '#f0ddb4', letterSpacing: '0.06em' }}
         >
-          Next: {nextDay} at {nextTime}
+          Open {nextDay} at {nextTime}
         </h3>
         {scheduleLines.map((line, i) => (
           <p key={i} className="text-sm mt-1" style={{ color: 'rgba(240,221,180,0.65)', fontFamily: 'var(--font-heading)' }}>
@@ -191,7 +191,7 @@ export function InSeasonCountdownLabel() {
       Opens in&nbsp;
       {days > 0 && <span>{days}d&nbsp;</span>}
       <span className="tabular-nums">{pad(hours)}h&nbsp;{pad(minutes)}m</span>
-      &nbsp;· Next: {nextDay} at {nextTime}
+      &nbsp;· Open {nextDay} at {nextTime}
     </span>
   );
 }
