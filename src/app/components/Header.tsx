@@ -169,7 +169,7 @@ export function Header() {
           {/* Logo + Est. badge */}
           <div className="flex items-center gap-3">
             <div
-              className="hidden lg:flex flex-col items-center leading-none select-none"
+              className="hidden xl:flex flex-col items-center leading-none select-none"
               style={{ opacity: 1 }}
             >
               <span style={{ fontFamily: 'var(--font-heading)', fontSize: '0.55rem', letterSpacing: '0.18em', color: '#d4af37', textTransform: 'uppercase' }}>Est.</span>
@@ -187,7 +187,7 @@ export function Header() {
 
           {/* Est. 1977 — centered on mobile only */}
           <div
-            className="lg:hidden absolute left-1/2 -translate-x-1/2 flex flex-col items-center leading-none select-none pointer-events-none"
+            className="xl:hidden absolute left-1/2 -translate-x-1/2 flex flex-col items-center leading-none select-none pointer-events-none"
           >
             <span style={{ fontFamily: 'var(--font-heading)', fontSize: '0.55rem', letterSpacing: '0.18em', color: '#d4af37', textTransform: 'uppercase' }}>Est.</span>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.05rem', color: '#d4af37', lineHeight: 1 }}>1977</span>
@@ -195,7 +195,7 @@ export function Header() {
           </div>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-0.5">
+          <nav className="hidden xl:flex items-center gap-0.5">
             {navLinks.map((link) => (
               <Link
                 key={link.to}
@@ -255,7 +255,7 @@ export function Header() {
 
             <Link
               to="/plan-your-visit"
-              className="hidden lg:block px-5 py-2 text-sm font-heading tracking-wide transition-all hover:scale-105 hover:shadow-lg"
+              className="hidden xl:block px-5 py-2 text-sm font-heading tracking-wide transition-all hover:scale-105 hover:shadow-lg"
               style={{
                 background: 'linear-gradient(135deg, #c1860a 0%, #d4af37 50%, #b8770a 100%)',
                 color: '#1a0e04',
@@ -277,7 +277,7 @@ export function Header() {
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 text-amber-100 hover:text-gold-treasure transition-colors rounded self-center"
+              className="xl:hidden p-2 text-amber-100 hover:text-gold-treasure transition-colors rounded self-center"
               aria-label="Toggle menu"
             >
               <span className="relative block w-6 h-6">
@@ -304,7 +304,7 @@ export function Header() {
           {mobileMenuOpen && (
             <motion.div
               key="mobile-menu"
-              className="lg:hidden overflow-hidden"
+              className="xl:hidden overflow-hidden"
               initial={{ height: 0 }}
               animate={{ height: 'auto' }}
               exit={{ height: 0 }}
