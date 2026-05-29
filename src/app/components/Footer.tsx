@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
 import { Facebook, Instagram, MapPin, Phone, Mail } from 'lucide-react';
+import GoogleIcon from '@mui/icons-material/Google';
 import { ParkStatusPill } from './ParkStatusBadge';
 
 const primaryLinks = [
@@ -127,6 +128,21 @@ export function Footer() {
                 aria-label="Instagram"
               >
                 <Instagram className="w-4 h-4" />
+              </a>
+              <a
+                href="https://g.page/r/CUnGozQrWxxBEAE/review"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 flex items-center justify-center transition-all hover:scale-110"
+                style={{
+                  background: 'rgba(212,175,55,0.15)',
+                  border: '1px solid rgba(212,175,55,0.3)',
+                  borderRadius: '2px',
+                  color: 'rgba(245,230,180,0.8)',
+                }}
+                aria-label="Leave a Google Review"
+              >
+                <GoogleIcon style={{ fontSize: '1rem' }} />
               </a>
             </div>
             <h4 className="font-heading text-sm tracking-widest uppercase mb-2" style={{ color: '#d4af37' }}>
