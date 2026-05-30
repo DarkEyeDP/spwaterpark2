@@ -12,7 +12,7 @@ const PIRATE_QUOTES = [
   { quote: "Feet first. ALWAYS feet first. This is not negotiable.", author: "Deckhand Paul" },
   { quote: "The last echoes of delighted screaming still drift over the water like sea mist rolling in off Emerald Isle.", author: "Cap'n Barnacle McGee" },
   { quote: "Tucked behind the old ledger was a map annotated: 'DO NOT LET PAUL DIG HERE AGAIN.'", author: "Quartermaster Marlowe" },
-  { quote: "The footprints stopped near the tipping bucket and vanished completely. The salt smelled not like pool water, but like the sound side on a cold day off Emerald Isle.", author: "Cap'n Barnacle McGee" },
+  { quote: "The footprints stopped near the slides and vanished completely. The salt smelled not like pool water, but like the sound side on a cold day off Emerald Isle.", author: "Cap'n Barnacle McGee" },
   { quote: "If there be a hidden passage beneath the park, it likely points south along the coast toward old pirate routes and poor decisions.", author: "Deckhand Paul" },
   { quote: "SQUAWK. When lightning doth crack across the heavens, ALL PIRATES MUST EXIT THE WATER. SQUAWK.", author: "Lt. Squawks" },
   { quote: "A Season Pass pays fer itself in but SIX visits. The captain done the math twice. He's very proud of himself.", author: "First Mate Patchy" },
