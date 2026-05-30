@@ -400,10 +400,14 @@ export function Pricing() {
                   <Ticket className="w-5 h-5 shrink-0" style={{ color: GOLD }} />
                   <div>
                     <p style={{ fontFamily: 'var(--font-heading)', color: PARCHMENT, fontSize: '1rem', letterSpacing: '0.04em' }}>
-                      Tickets are sold at the park only
+                      Tickets are sold at the gate or by phone — no online sales
                     </p>
                     <p className="text-sm" style={{ color: 'rgba(240,221,180,0.55)' }}>
-                      No online ticket sales are available at this time.
+                      Stop by when you arrive, or call us ahead of time at{' '}
+                      <a href="tel:+12523542609" style={{ color: GOLD, textDecoration: 'underline', textUnderlineOffset: '2px' }}>
+                        (252) 354-2609
+                      </a>
+                      .
                     </p>
                   </div>
                 </div>

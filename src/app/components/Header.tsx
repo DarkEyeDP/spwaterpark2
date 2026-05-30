@@ -158,6 +158,22 @@ export function Header() {
         boxShadow: '0 4px 16px rgba(0,0,0,0.55), inset 0 -1px 0 rgba(212,175,55,0.3)',
       }}
     >
+      {/* Ticket purchase notice strip */}
+      <div
+        className="w-full py-1.5 text-center"
+        style={{ background: 'rgba(180,120,10,0.18)', borderBottom: '1px solid rgba(212,175,55,0.18)' }}
+      >
+        <p style={{ fontFamily: 'var(--font-heading)', fontSize: '0.7rem', letterSpacing: '0.1em', color: 'rgba(240,221,180,0.75)' }}>
+          Tickets sold at the gate or by phone &mdash; no online sales &nbsp;&middot;&nbsp;{' '}
+          <a
+            href="tel:+12523542609"
+            style={{ color: '#d4af37', textDecoration: 'underline', textUnderlineOffset: '2px' }}
+          >
+            (252) 354-2609
+          </a>
+        </p>
+      </div>
+
       {/* Gold rope accent line */}
       <div
         className="w-full h-px"
