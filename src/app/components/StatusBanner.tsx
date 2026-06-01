@@ -57,21 +57,18 @@ const STATUS_CONFIG: Record<ParkStatus, {
     label: 'Open Now!',
     messages: [
       'We are open! Come on in — the water is fine!',
-      'Thru May 31: Sat–Sun 10 AM–6 PM · Mon 10 AM–5 PM',
-      'Starting June 5: Open 7 days a week!',
-      'Jun 5+: Tue–Sun 10 AM–6 PM · Mon 11 AM–5 PM',
+      'Open 7 days a week · Mon 11 AM–5 PM · Tue–Sun 10 AM–6 PM',
     ],
   },
   'in-season-closed': {
     icon: Clock,
     bgColor: 'bg-teal-700',
     textColor: 'text-teal-50',
-    label: 'Open for the Season',
+    label: 'Opening June 5',
     messages: [
       <InSeasonCountdownLabel key="countdown" />,
-      'Thru May 31: Sat–Sun 10 AM–6 PM · Mon 10 AM–5 PM',
-      'Starting June 5: Open 7 days a week!',
-      'Jun 5+: Tue–Sun 10 AM–6 PM · Mon 11 AM–5 PM',
+      'Opening June 5 — 7 days a week for the season!',
+      'Mon 11 AM–5 PM · Tue–Sun 10 AM–6 PM',
     ],
   },
   'closed': {

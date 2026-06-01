@@ -51,9 +51,10 @@ export function ParkStatusPill({ variant = 'dark' }: { variant?: 'dark' | 'light
     const time = formatETTime(status.opensAt);
 
     if (status.currentPhase === 2) {
+      const countdown = days > 0 ? `${days}d ${pad(hours)}h` : `${pad(hours)}h ${pad(minutes)}m`;
       return (
         <span style={{ color: closedColor, fontFamily: 'var(--font-body)' }}>
-          Opens in {pad(hours)}h {pad(minutes)}m
+          Opens in {countdown}
           <span style={{ opacity: dimOpacity }}> · {day} at {time}</span>
         </span>
       );
@@ -120,14 +121,12 @@ export function HeroStatusCard() {
     const nextTime = formatETTime(status.opensAt);
     const isPhase2 = status.currentPhase === 2;
 
-    const countdownStr = isPhase2
-      ? `${pad(hours)}h ${pad(minutes)}m`
-      : days > 0
-        ? `${days}d ${pad(hours)}h`
-        : `${pad(hours)}h ${pad(minutes)}m`;
+    const countdownStr = days > 0
+      ? `${days}d ${pad(hours)}h`
+      : `${pad(hours)}h ${pad(minutes)}m`;
 
     const scheduleLines = isPhase2
-      ? ['Open every day', 'Mon 11 AM–5 PM · Tue–Sun 10 AM–6 PM']
+      ? [days > 0 ? 'Opening June 5 — 7 days a week!' : 'Open every day', 'Mon 11 AM–5 PM · Tue–Sun 10 AM–6 PM']
       : ['Sat–Sun 10 AM–6 PM · Mon 10 AM–5 PM', 'Starting June 5: Open 7 days a week!'];
 
     return (
@@ -177,10 +176,13 @@ export function InSeasonCountdownLabel() {
   const isPhase2 = status.currentPhase === 2;
 
   if (isPhase2) {
+    const countdown = days > 0
+      ? `${days}d ${pad(hours)}h ${pad(minutes)}m`
+      : `${pad(hours)}h ${pad(minutes)}m ${pad(seconds)}s`;
     return (
       <span style={{ fontFamily: 'var(--font-body)' }}>
         Opens in&nbsp;
-        <span className="tabular-nums">{pad(hours)}h {pad(minutes)}m {pad(seconds)}s</span>
+        <span className="tabular-nums">{countdown}</span>
         &nbsp;· {nextDay} at {nextTime}
       </span>
     );

@@ -51,15 +51,18 @@ function makeETTime(year: number, month: number, day: number, hour: number): Dat
   return new Date(`${year}-${m}-${d}T${h}:00:00-04:00`);
 }
 
-// Phase 1: Sat–Sun–Mon only (through May 31)
-// Phase 2: 7 days a week (starting June 5)
+// Phase 1: Sat–Sun–Mon only (May only, through May 31)
+// Phase 2: 7 days a week (starting June 5; June 1–4 are a closed gap)
 function getPhaseForDate(year: number, month: number, day: number): 1 | 2 {
-  if (month > 6 || (month === 6 && day >= 5)) return 2;
+  if (month >= 6) return 2;
   return 1;
 }
 
-function getOpenHour(dow: number, phase: 1 | 2): number | null {
-  if (phase === 2) return dow === 1 ? 11 : 10;
+function getOpenHour(dow: number, phase: 1 | 2, month: number, day: number): number | null {
+  if (phase === 2) {
+    if (month === 6 && day < 5) return null; // closed June 1–4 gap
+    return dow === 1 ? 11 : 10;
+  }
   // Phase 1: Sat(6), Sun(0), Mon(1) only
   if (dow === 6 || dow === 0 || dow === 1) return 10;
   return null;
@@ -74,7 +77,7 @@ function findNextOpening(now: Date): { opensAt: Date; phase: 1 | 2 } {
     const check = new Date(now.getTime() + daysAhead * 86_400_000);
     const et = getETComponents(check);
     const phase = getPhaseForDate(et.year, et.month, et.day);
-    const openHour = getOpenHour(et.dow, phase);
+    const openHour = getOpenHour(et.dow, phase, et.month, et.day);
     if (openHour === null) continue;
 
     const openTime = makeETTime(et.year, et.month, et.day, openHour);
@@ -99,7 +102,7 @@ export function getOpenStatus(now: Date = new Date()): OpenStatus {
   if (now >= seasonEnd)  return { type: 'post-season' };
 
   const currentPhase = getPhaseForDate(et.year, et.month, et.day);
-  const openHour = getOpenHour(et.dow, currentPhase);
+  const openHour = getOpenHour(et.dow, currentPhase, et.month, et.day);
 
   if (openHour !== null) {
     const openTime  = makeETTime(et.year, et.month, et.day, openHour);
